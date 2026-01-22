@@ -11,6 +11,6 @@ public class Doctor : BaseEntity
     public int PolyclinicId { get; set; }
     public Polyclinic Polyclinic { get; set; } = null!;
 
-    public ICollection<Appointment> Appointments { get; set; } = null!;
+    public ICollection<HospitalAppointment> Appointments { get; set; } = null!;
 }
 
