@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Aktif Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_SidebarUser")
+}
+
+<h1>Aktif Randevular</h1>
+
+<table>
+    <tr>
+        <th>Hastane</th><th>Bölüm</th><th>Doktor</th><th>Tarih</th><th>Saat</th><th>İşlem</th>
+    </tr>
+    <tr>
+        <td>Devlet Hastanesi</td>
+        <td>Kardiyoloji</td>
+        <td>Dr. Ahmet Yılmaz</td>
+        <td>15.02.2026</td>
+        <td>10:30</td>
+        <td>
+            <button class="delay" onclick="openDelay()">Ertele</button>
+            <button class="cancel" onclick="openCancel()">İptal</button>
+        </td>
+    </tr>
+</table>
+

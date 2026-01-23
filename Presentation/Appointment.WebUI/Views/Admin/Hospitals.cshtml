@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Hastaneler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("_SidebarAdmin")
+}
+
+<h1>Hastaneler</h1>
+<button onclick="openHospitalModal()">Hastane Ekle</button>
+
+<table id="hospitalTable">
+    <tr><th>İsim</th><th>Adres</th><th>Şehir</th><th>İşlem</th></tr>
+</table>

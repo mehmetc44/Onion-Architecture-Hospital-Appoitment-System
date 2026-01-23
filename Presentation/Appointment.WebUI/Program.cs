@@ -14,6 +14,7 @@ namespace Appointment.WebUI
 
             builder.Services.ConfigureIdentity(builder.Configuration);
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -31,8 +32,6 @@ namespace Appointment.WebUI
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
 
             // Logging middleware (opsiyonel)
             // app.UseSerilogRequestLogging();

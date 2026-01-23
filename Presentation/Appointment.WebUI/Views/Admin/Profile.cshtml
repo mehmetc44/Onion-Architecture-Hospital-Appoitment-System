@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Admin Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("_SidebarAdmin")
+}
+
+<h1>Profil</h1>
+
+<form id="profileForm">
+    <label>Ad Soyad:</label>
+    <input type="text" id="adminName" value="Admin Kullanıcı"><br><br>
+    <label>TC:</label>
+    <input type="text" id="adminTC" value="11111111111"><br><br>
+    <label>Telefon:</label>
+    <input type="text" id="adminPhone" value="05551234567"><br><br>
+    <label>Email:</label>
+    <input type="email" id="adminEmail" value="admin@example.com"><br><br>
+    <button type="submit">Güncelle</button>
+</form>

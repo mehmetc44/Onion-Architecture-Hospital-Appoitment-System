@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Randevu Al";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_SidebarUser")
+}
+
+<h1>Randevu Al</h1>
+
+<div class="form-grid">
+    <select>
+        <option>İstanbul</option>
+    </select>
+    <select>
+        <option>Devlet Hastanesi</option>
+    </select>
+    <select>
+        <option>Kardiyoloji</option>
+    </select>
+    <select>
+        <option>Dr. Ahmet Yılmaz</option>
+    </select>
+    <input type="date">
+    <input type="time">
+</div>
+<button>Randevu Oluştur</button>
+

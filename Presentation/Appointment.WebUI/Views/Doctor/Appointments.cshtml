@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("_SidebarDoctor")
+}
+
+<h1>Randevular</h1>
+
+<table>
+    <tr>
+        <th>Ad Soyad</th><th>TC</th><th>Bölüm</th><th>Doktor</th><th>Tarih</th><th>Durum</th><th>Açıklama</th><th>İşlem</th>
+    </tr>
+    <tr>
+        <td>Ali Yılmaz</td><td>12345678901</td><td>Kardiyoloji</td><td>Dr. Ahmet</td><td>15.01.2026</td>
+        <td>
+            <select class="status-select">
+                <option value="Bekliyor">Bekliyor</option>
+                <option value="Tamamlandı">Tamamlandı</option>
+                <option value="İptal">İptal</option>
+            </select>
+        </td>
+        <td><input type="text" class="desc-input" placeholder="Açıklama ekle"></td>
+        <td>
+            <button class="confirm-btn">Onayla</button>
+            <button class="cancel-btn">İptal</button>
+        </td>
+    </tr>
+</table>

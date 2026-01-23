@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Doctor Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("_SidebarDoctor")
+}
+
+<h1>Dashboard</h1>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>Bugün</h3>
+        <p id="todayCount">8</p>
+    </div>
+    <div class="stat-card">
+        <h3>Bu Hafta</h3>
+        <p id="weekCount">35</p>
+    </div>
+    <div class="stat-card">
+        <h3>Bu Ay</h3>
+        <p id="monthCount">140</p>
+    </div>
+</div>
+
+<canvas id="patientChart" height="120"></canvas>

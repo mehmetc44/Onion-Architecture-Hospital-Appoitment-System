@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = null;
+}
+
+<h1>Kayıt Ol</h1>
+
+<form id="registerForm">
+    <input type="text" placeholder="Ad Soyad" required>
+    <input type="email" placeholder="E-posta" required>
+    <input type="password" placeholder="Şifre" required>
+    <button type="submit">Kayıt Ol</button>
+    <div class="links">
+        <a asp-action="Login">Giriş Yap</a>
+    </div>
+</form>
