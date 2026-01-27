@@ -1,13 +1,12 @@
 @{
-    ViewData["Title"] = "Admin Profil";
+    ViewData["Title"] = "Admin Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Sidebar {
-    @await Html.PartialAsync("_SidebarAdmin")
+    @await Html.PartialAsync("Component/_AdminSidebar.cshtml")
 }
 
-<h1>Profil</h1>
 
 <form id="profileForm">
     <label>Ad Soyad:</label>

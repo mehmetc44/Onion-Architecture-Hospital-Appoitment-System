@@ -1,8 +1,12 @@
 using Appointment.Persistence.Context;
 using Appointment.Domain.Entities.Identity;
 using Appointment.WebUI.Extensions;
+using Appointment.Application.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Appointment.WebUI
 {
@@ -12,8 +16,31 @@ namespace Appointment.WebUI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // JWT Settings
+            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+            builder.Services.Configure<JwtSettings>(jwtSettings);
+
+            var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]!);
+            builder.Services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtSettings["Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = jwtSettings["Audience"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
+
             builder.Services.ConfigureIdentity(builder.Configuration);
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
+            builder.Services.ConfigureDependencyInjection();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -31,10 +58,8 @@ namespace Appointment.WebUI
 
             app.UseStaticFiles();
             app.UseRouting();
-
-
-            // Logging middleware (opsiyonel)
-            // app.UseSerilogRequestLogging();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             // --- Route ---
             app.MapControllerRoute(

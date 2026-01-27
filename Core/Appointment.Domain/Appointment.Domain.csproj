@@ -15,5 +15,4 @@
     <Folder Include="Entities/Common/" />
     <Folder Include="Enums/" />
   </ItemGroup>
-
 </Project>

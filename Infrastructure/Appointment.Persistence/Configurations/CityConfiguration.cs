@@ -28,7 +28,7 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
         cities.Sort();
         var cityEntities = cities.Select((name, index) => new City
         {
-            Id = (index + 1).ToString(),
+            Id = new Guid($"{(index + 1):D32}").ToString(), 
             Name = name,
         }).ToArray();
 

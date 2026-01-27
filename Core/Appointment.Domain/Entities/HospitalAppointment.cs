@@ -8,11 +8,9 @@ public class HospitalAppointment : BaseEntity
 {
     public DateTime AppointmentDate { get; set; }
     public AppointmentStatus Status { get; set; }
-
-    public string UserId { get; set; } = null!;
-    public AspUser User { get; set; } = null!;
-
-    public int DoctorId { get; set; } 
+    public string PatientId { get; set; } = null!; 
+    public AspUser Patient { get; set; } = null!;
+    public string DoctorId { get; set; } = null!; 
     public Doctor Doctor { get; set; } = null!;
 }
 

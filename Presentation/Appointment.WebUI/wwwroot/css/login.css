@@ -131,5 +131,32 @@ button:hover {
     background-color: #1e3a8a; /* Seçili buton rengi */
     color: #ffffff;
 }
+/* Select placeholder ve görünüm */
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background-color: #f8faff;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    color: #0a1f44;
+    font-size: 14px;
+    appearance: none; /* Tarayıcı varsayılan okunu kaldırır */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+/* Placeholder rengi */
+select option {
+    color: #6b7ca8;
+}
+
+/* Odaklandığında */
+select:focus {
+    outline: none;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.15);
+}
 
 

@@ -22,9 +22,15 @@ namespace Appointment.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -34,429 +40,571 @@ namespace Appointment.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
-                            Name = "Adana"
+                            Id = "00000000-0000-0000-0000-000000000001",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Adana",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "2",
-                            Name = "Adıyaman"
+                            Id = "00000000-0000-0000-0000-000000000002",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Adıyaman",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "3",
-                            Name = "Afyonkarahisar"
+                            Id = "00000000-0000-0000-0000-000000000003",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Afyonkarahisar",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "4",
-                            Name = "Ağrı"
+                            Id = "00000000-0000-0000-0000-000000000004",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ağrı",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "5",
-                            Name = "Aksaray"
+                            Id = "00000000-0000-0000-0000-000000000005",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Aksaray",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "6",
-                            Name = "Amasya"
+                            Id = "00000000-0000-0000-0000-000000000006",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Amasya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "7",
-                            Name = "Ankara"
+                            Id = "00000000-0000-0000-0000-000000000007",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ankara",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "8",
-                            Name = "Antalya"
+                            Id = "00000000-0000-0000-0000-000000000008",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Antalya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "9",
-                            Name = "Ardahan"
+                            Id = "00000000-0000-0000-0000-000000000009",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ardahan",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "10",
-                            Name = "Artvin"
+                            Id = "00000000-0000-0000-0000-000000000010",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Artvin",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "11",
-                            Name = "Aydın"
+                            Id = "00000000-0000-0000-0000-000000000011",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Aydın",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "12",
-                            Name = "Balıkesir"
+                            Id = "00000000-0000-0000-0000-000000000012",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Balıkesir",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "13",
-                            Name = "Bartın"
+                            Id = "00000000-0000-0000-0000-000000000013",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bartın",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "14",
-                            Name = "Batman"
+                            Id = "00000000-0000-0000-0000-000000000014",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Batman",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "15",
-                            Name = "Bayburt"
+                            Id = "00000000-0000-0000-0000-000000000015",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bayburt",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "16",
-                            Name = "Bilecik"
+                            Id = "00000000-0000-0000-0000-000000000016",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bilecik",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "17",
-                            Name = "Bingöl"
+                            Id = "00000000-0000-0000-0000-000000000017",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bingöl",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "18",
-                            Name = "Bitlis"
+                            Id = "00000000-0000-0000-0000-000000000018",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bitlis",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "19",
-                            Name = "Bolu"
+                            Id = "00000000-0000-0000-0000-000000000019",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bolu",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "20",
-                            Name = "Burdur"
+                            Id = "00000000-0000-0000-0000-000000000020",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Burdur",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "21",
-                            Name = "Bursa"
+                            Id = "00000000-0000-0000-0000-000000000021",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bursa",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "22",
-                            Name = "Çanakkale"
+                            Id = "00000000-0000-0000-0000-000000000022",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Çanakkale",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "23",
-                            Name = "Çankırı"
+                            Id = "00000000-0000-0000-0000-000000000023",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Çankırı",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "24",
-                            Name = "Çorum"
+                            Id = "00000000-0000-0000-0000-000000000024",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Çorum",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "25",
-                            Name = "Denizli"
+                            Id = "00000000-0000-0000-0000-000000000025",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Denizli",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "26",
-                            Name = "Diyarbakır"
+                            Id = "00000000-0000-0000-0000-000000000026",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Diyarbakır",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "27",
-                            Name = "Düzce"
+                            Id = "00000000-0000-0000-0000-000000000027",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Düzce",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "28",
-                            Name = "Edirne"
+                            Id = "00000000-0000-0000-0000-000000000028",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Edirne",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "29",
-                            Name = "Elazığ"
+                            Id = "00000000-0000-0000-0000-000000000029",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Elazığ",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "30",
-                            Name = "Erzincan"
+                            Id = "00000000-0000-0000-0000-000000000030",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Erzincan",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "31",
-                            Name = "Erzurum"
+                            Id = "00000000-0000-0000-0000-000000000031",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Erzurum",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "32",
-                            Name = "Eskişehir"
+                            Id = "00000000-0000-0000-0000-000000000032",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Eskişehir",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "33",
-                            Name = "Gaziantep"
+                            Id = "00000000-0000-0000-0000-000000000033",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gaziantep",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "34",
-                            Name = "Giresun"
+                            Id = "00000000-0000-0000-0000-000000000034",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Giresun",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "35",
-                            Name = "Gümüşhane"
+                            Id = "00000000-0000-0000-0000-000000000035",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gümüşhane",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "36",
-                            Name = "Hakkari"
+                            Id = "00000000-0000-0000-0000-000000000036",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Hakkari",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "37",
-                            Name = "Hatay"
+                            Id = "00000000-0000-0000-0000-000000000037",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Hatay",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "38",
-                            Name = "Iğdır"
+                            Id = "00000000-0000-0000-0000-000000000038",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Iğdır",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "39",
-                            Name = "Isparta"
+                            Id = "00000000-0000-0000-0000-000000000039",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Isparta",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "40",
-                            Name = "İstanbul"
+                            Id = "00000000-0000-0000-0000-000000000040",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "İstanbul",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "41",
-                            Name = "İzmir"
+                            Id = "00000000-0000-0000-0000-000000000041",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "İzmir",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "42",
-                            Name = "Kahramanmaraş"
+                            Id = "00000000-0000-0000-0000-000000000042",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kahramanmaraş",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "43",
-                            Name = "Karabük"
+                            Id = "00000000-0000-0000-0000-000000000043",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Karabük",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "44",
-                            Name = "Karaman"
+                            Id = "00000000-0000-0000-0000-000000000044",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Karaman",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "45",
-                            Name = "Kars"
+                            Id = "00000000-0000-0000-0000-000000000045",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kars",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "46",
-                            Name = "Kastamonu"
+                            Id = "00000000-0000-0000-0000-000000000046",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kastamonu",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "47",
-                            Name = "Kayseri"
+                            Id = "00000000-0000-0000-0000-000000000047",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kayseri",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "48",
-                            Name = "Kilis"
+                            Id = "00000000-0000-0000-0000-000000000048",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kilis",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "49",
-                            Name = "Kırıkkale"
+                            Id = "00000000-0000-0000-0000-000000000049",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kırıkkale",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "50",
-                            Name = "Kırklareli"
+                            Id = "00000000-0000-0000-0000-000000000050",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kırklareli",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "51",
-                            Name = "Kırşehir"
+                            Id = "00000000-0000-0000-0000-000000000051",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kırşehir",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "52",
-                            Name = "Kocaeli"
+                            Id = "00000000-0000-0000-0000-000000000052",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kocaeli",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "53",
-                            Name = "Konya"
+                            Id = "00000000-0000-0000-0000-000000000053",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Konya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "54",
-                            Name = "Kütahya"
+                            Id = "00000000-0000-0000-0000-000000000054",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kütahya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "55",
-                            Name = "Malatya"
+                            Id = "00000000-0000-0000-0000-000000000055",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Malatya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "56",
-                            Name = "Manisa"
+                            Id = "00000000-0000-0000-0000-000000000056",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Manisa",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "57",
-                            Name = "Mardin"
+                            Id = "00000000-0000-0000-0000-000000000057",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mardin",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "58",
-                            Name = "Mersin"
+                            Id = "00000000-0000-0000-0000-000000000058",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mersin",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "59",
-                            Name = "Muğla"
+                            Id = "00000000-0000-0000-0000-000000000059",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Muğla",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "60",
-                            Name = "Muş"
+                            Id = "00000000-0000-0000-0000-000000000060",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Muş",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "61",
-                            Name = "Nevşehir"
+                            Id = "00000000-0000-0000-0000-000000000061",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Nevşehir",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "62",
-                            Name = "Niğde"
+                            Id = "00000000-0000-0000-0000-000000000062",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Niğde",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "63",
-                            Name = "Ordu"
+                            Id = "00000000-0000-0000-0000-000000000063",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ordu",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "64",
-                            Name = "Osmaniye"
+                            Id = "00000000-0000-0000-0000-000000000064",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Osmaniye",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "65",
-                            Name = "Rize"
+                            Id = "00000000-0000-0000-0000-000000000065",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Rize",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "66",
-                            Name = "Sakarya"
+                            Id = "00000000-0000-0000-0000-000000000066",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sakarya",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "67",
-                            Name = "Samsun"
+                            Id = "00000000-0000-0000-0000-000000000067",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Samsun",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "68",
-                            Name = "Şanlıurfa"
+                            Id = "00000000-0000-0000-0000-000000000068",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Şanlıurfa",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "69",
-                            Name = "Siirt"
+                            Id = "00000000-0000-0000-0000-000000000069",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Siirt",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "70",
-                            Name = "Sinop"
+                            Id = "00000000-0000-0000-0000-000000000070",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sinop",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "71",
-                            Name = "Sivas"
+                            Id = "00000000-0000-0000-0000-000000000071",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sivas",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "72",
-                            Name = "Şırnak"
+                            Id = "00000000-0000-0000-0000-000000000072",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Şırnak",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "73",
-                            Name = "Tekirdağ"
+                            Id = "00000000-0000-0000-0000-000000000073",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Tekirdağ",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "74",
-                            Name = "Tokat"
+                            Id = "00000000-0000-0000-0000-000000000074",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Tokat",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "75",
-                            Name = "Trabzon"
+                            Id = "00000000-0000-0000-0000-000000000075",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Trabzon",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "76",
-                            Name = "Tunceli"
+                            Id = "00000000-0000-0000-0000-000000000076",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Tunceli",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "77",
-                            Name = "Uşak"
+                            Id = "00000000-0000-0000-0000-000000000077",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Uşak",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "78",
-                            Name = "Van"
+                            Id = "00000000-0000-0000-0000-000000000078",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Van",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "79",
-                            Name = "Yalova"
+                            Id = "00000000-0000-0000-0000-000000000079",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Yalova",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "80",
-                            Name = "Yozgat"
+                            Id = "00000000-0000-0000-0000-000000000080",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Yozgat",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = "81",
-                            Name = "Zonguldak"
+                            Id = "00000000-0000-0000-0000-000000000081",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Zonguldak",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("Appointment.Domain.Entities.Department", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
@@ -467,13 +615,8 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DepartmentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("PolyclinicId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PolyclinicId1")
+                    b.Property<string>("PolyclinicId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -485,9 +628,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("PolyclinicId1");
+                    b.HasIndex("PolyclinicId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -504,10 +645,7 @@ namespace Appointment.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CityId1")
+                    b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -523,7 +661,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId1");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Hospitals");
                 });
@@ -539,10 +677,12 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("DoctorId1")
+                    b.Property<string>("PatientId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Status")
@@ -551,15 +691,11 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("DoctorId1");
+                    b.HasIndex("DoctorId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
                 });
@@ -620,6 +756,9 @@ namespace Appointment.Persistence.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -690,10 +829,7 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("HospitalId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("HospitalId1")
+                    b.Property<string>("HospitalId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -706,7 +842,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HospitalId1");
+                    b.HasIndex("HospitalId");
 
                     b.ToTable("Polyclinics");
                 });
@@ -815,13 +951,11 @@ namespace Appointment.Persistence.Migrations
 
             modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
                 {
-                    b.HasOne("Appointment.Domain.Entities.Department", null)
-                        .WithMany("Doctors")
-                        .HasForeignKey("DepartmentId");
-
                     b.HasOne("Appointment.Domain.Entities.Polyclinic", "Polyclinic")
                         .WithMany("Doctors")
-                        .HasForeignKey("PolyclinicId1");
+                        .HasForeignKey("PolyclinicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "User")
                         .WithOne("Doctor")
@@ -838,8 +972,8 @@ namespace Appointment.Persistence.Migrations
                 {
                     b.HasOne("Appointment.Domain.Entities.City", "City")
                         .WithMany("Hospitals")
-                        .HasForeignKey("CityId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -849,25 +983,27 @@ namespace Appointment.Persistence.Migrations
                 {
                     b.HasOne("Appointment.Domain.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
-                        .HasForeignKey("DoctorId1");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "User")
+                    b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "Patient")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Doctor");
 
-                    b.Navigation("User");
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Appointment.Domain.Entities.Polyclinic", b =>
                 {
                     b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
                         .WithMany("Polyclinics")
-                        .HasForeignKey("HospitalId1")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Hospital");
@@ -927,11 +1063,6 @@ namespace Appointment.Persistence.Migrations
             modelBuilder.Entity("Appointment.Domain.Entities.City", b =>
                 {
                     b.Navigation("Hospitals");
-                });
-
-            modelBuilder.Entity("Appointment.Domain.Entities.Department", b =>
-                {
-                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>

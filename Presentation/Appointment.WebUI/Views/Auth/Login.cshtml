@@ -1,9 +1,45 @@
+@model Appointment.WebUI.Models.LoginViewModel
 @{
     ViewData["Title"] = "Giriş Yap";
-    Layout = "~/Views/Shared/_LoginLayout.cshtml"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form id="loginForm">
-    <input type="text" placeholder="Kullanıcı Adı" required>
-    <input type="password" placeholder="Şifre" required>
-    <button type="submit">Giriş Yap</button>
-</form>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Giriş Yap</h2>
+                    
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            @Html.ValidationSummary(true)
+                        </div>
+                    }
+
+                    <form asp-action="Login" asp-controller="Auth" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label">E-posta</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="E-posta adresiniz" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Password" class="form-label">Şifre</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Şifre" required>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p>Hesabınız yok mu? <a asp-action="Register" asp-controller="Auth" class="text-decoration-none">Kayıt Ol</a></p>
+                        <p><a asp-action="ForgotPassword" asp-controller="Auth" class="text-decoration-none">Şifremi Unuttum</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

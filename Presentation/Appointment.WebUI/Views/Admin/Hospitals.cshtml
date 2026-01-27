@@ -1,15 +1,53 @@
 @{
-    ViewData["Title"] = "Hastaneler";
+    ViewData["Title"] = "Admin Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Sidebar {
-    @await Html.PartialAsync("_SidebarAdmin")
+    @await Html.PartialAsync("Component/_AdminSidebar.cshtml")
+}
+@section Scripts {
+    <script src="~/js/admin.js"></script>
 }
 
 <h1>Hastaneler</h1>
-<button onclick="openHospitalModal()">Hastane Ekle</button>
+
+<button onclick="openModal('hospital')">Hastane Ekle</button>
 
 <table id="hospitalTable">
-    <tr><th>İsim</th><th>Adres</th><th>Şehir</th><th>İşlem</th></tr>
+    <tr>
+        <th>İsim</th>
+        <th>Adres</th>
+        <th>Şehir</th>
+        <th>İşlem</th>
+    </tr>
+    <tr>
+        <td>Acıbadem Hastanesi</td>
+        <td>Cadde 123</td>
+        <td>İstanbul</td>
+        <td>
+            <button class="edit-hospital-btn" data-id="1" data-name="Acıbadem Hastanesi" data-address="Cadde 123"
+                data-city="İstanbul">
+                Düzenle
+            </button>
+            <button>Sil</button>
+        </td>
+
+    </tr>
+    <tr>
+        <td>Medicana</td>
+        <td>Sokak 45</td>
+        <td>Ankara</td>
+        <td>
+            <button class="edit-hospital-btn" data-id="2" data-name="Medicana" data-address="Sokak 45"
+                data-city="Ankara">
+                Düzenle
+            </button>
+
+            <button>Sil</button>
+        </td>
+    </tr>
 </table>
+
+@await Html.PartialAsync("../Shared/Modals/Hospital/_CreateModal")
+@await Html.PartialAsync("../Shared/Modals/Hospital/_UpdateModal")

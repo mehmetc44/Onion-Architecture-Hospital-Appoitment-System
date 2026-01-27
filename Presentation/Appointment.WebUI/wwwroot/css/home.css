@@ -1,0 +1,4 @@
+.time-slot { padding: 8px 12px; margin: 3px; border-radius: 5px; border: none; cursor: pointer; }
+.time-slot.available { background-color: #10b981; color: white; }
+.time-slot.unavailable { background-color: #6b7280; color: white; cursor: not-allowed; }
+.time-slot.selected { border: 2px solid #2563eb; }

@@ -8,9 +8,9 @@ public class Hospital : BaseEntity
     public string Name { get; set; } = null!;
     public string Address { get; set; } = null!;
 
-    public int CityId { get; set; }
+    public string CityId { get; set; } = null!; 
     public City City { get; set; } = null!;
 
-    public ICollection<Polyclinic> Polyclinics { get; set; } = null!;
+    public ICollection<Polyclinic> Polyclinics { get; set; } = new List<Polyclinic>();
 }
 

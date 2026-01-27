@@ -8,9 +8,9 @@ public class Doctor : BaseEntity
     public string UserId { get; set; } = null!;
     public AspUser User { get; set; } = null!;
 
-    public int PolyclinicId { get; set; }
+    public string PolyclinicId { get; set; } = null!; // Bölüm seçilince doktorlar filtrelenecek
     public Polyclinic Polyclinic { get; set; } = null!;
 
-    public ICollection<HospitalAppointment> Appointments { get; set; } = null!;
+    public ICollection<HospitalAppointment> Appointments { get; set; } = new List<HospitalAppointment>();
 }
 

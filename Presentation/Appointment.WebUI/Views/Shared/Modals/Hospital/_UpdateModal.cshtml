@@ -1,0 +1,32 @@
+﻿<div id="updateHospitalModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('updateHospitalModal').style.display='none'">&times;</span>
+        <h2>Hastane Düzenle</h2>
+
+        <form asp-controller="Admin" asp-action="UpdateHospital" method="post">
+            <input type="hidden" name="Id" id="updateHospitalId" />
+
+            <div>
+                <label>İsim:</label>
+                <input type="text" name="Name" id="updateHospitalName" required />
+            </div>
+
+            <div>
+                <label>Adres:</label>
+                <input type="text" name="Address" id="updateHospitalAddress" required />
+            </div>
+
+            <div>
+                <label>Şehir:</label>
+                <select name="City" id="updateHospitalCity" required>
+                    <option value="">Seçiniz</option>
+                    <option value="İstanbul">İstanbul</option>
+                    <option value="Ankara">Ankara</option>
+                    <option value="İzmir">İzmir</option>
+                </select>
+            </div>
+
+            <button type="submit">Güncelle</button>
+        </form>
+    </div>
+</div>
