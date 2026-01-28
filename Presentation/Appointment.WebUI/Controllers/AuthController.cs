@@ -42,97 +42,57 @@ namespace Appointment.WebUI.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
 
             var dto = new LoginDTO
             {
-                Email = model.Email,
+                UserNameOrEmail = model.UserNameOrEmail,
                 Password = model.Password
             };
 
-            var result = await _authService.LoginAsync(dto);
-
-            if (result.Succeeded)
+            try
             {
-                // Access Token'ı cookie'ye kaydet
-                Response.Cookies.Append("token", result.Token!, 
-                    new Microsoft.AspNetCore.Http.CookieOptions 
-                    { 
-                        HttpOnly = true, 
-                        Secure = true,
-                        SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddHours(1)
-                    });
+                var result = await _authService.LoginAsync(dto, 1);
 
-                // Refresh Token'ı cookie'ye kaydet
-                Response.Cookies.Append("refreshToken", result.RefreshToken!, 
-                    new Microsoft.AspNetCore.Http.CookieOptions 
-                    { 
-                        HttpOnly = true, 
-                        Secure = true,
-                        SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddDays(7)
-                    });
-                
-                return RedirectToAction("Index", "Home");
+                if (result.Succeeded)
+                {
+                    Response.Cookies.Append("token", result.Token!, 
+                        new Microsoft.AspNetCore.Http.CookieOptions 
+                        { 
+                            HttpOnly = true, 
+                            Secure = true,
+                            SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
+                            Expires = DateTimeOffset.UtcNow.AddHours(1)
+                        });
+                    Response.Cookies.Append("refreshToken", result.RefreshToken!, 
+                        new Microsoft.AspNetCore.Http.CookieOptions 
+                        { 
+                            HttpOnly = true, 
+                            Secure = true,
+                            SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
+                            Expires = DateTimeOffset.UtcNow.AddDays(7)
+                        });
+                    
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", result.Message ?? "Giriş yapılırken bir hata oluştu.");
             }
-
-            ModelState.AddModelError("", result.Message ?? "Giriş yapılırken bir hata oluştu.");
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message ?? "Giriş yapılırken bir hata oluştu.");
+            }
+            
             return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RefreshToken()
-        {
-            var token = Request.Cookies["token"];
-            var refreshToken = Request.Cookies["refreshToken"];
-
-            if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(refreshToken))
-                return Unauthorized(new { message = "Token bulunamadı." });
-
-            var dto = new RefreshTokenDTO
-            {
-                Token = token,
-                RefreshToken = refreshToken
-            };
-
-            var result = await _authService.RefreshTokenAsync(dto);
-
-            if (result.Succeeded)
-            {
-                // Yeni token'ları cookie'ye kaydet
-                Response.Cookies.Append("token", result.Token!, 
-                    new Microsoft.AspNetCore.Http.CookieOptions 
-                    { 
-                        HttpOnly = true, 
-                        Secure = true,
-                        SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddHours(1)
-                    });
-
-                Response.Cookies.Append("refreshToken", result.RefreshToken!, 
-                    new Microsoft.AspNetCore.Http.CookieOptions 
-                    { 
-                        HttpOnly = true, 
-                        Secure = true,
-                        SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                        Expires = DateTimeOffset.UtcNow.AddDays(7)
-                    });
-
-                return Ok(new { message = "Token yenilendi.", token = result.Token, refreshToken = result.RefreshToken });
-            }
-
-            return Unauthorized(new { message = result.Message });
-        }
         }
     }
 }

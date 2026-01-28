@@ -16,28 +16,8 @@ namespace Appointment.WebUI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // JWT Settings
-            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-            builder.Services.Configure<JwtSettings>(jwtSettings);
-
-            var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]!);
-            builder.Services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = true,
-                        ValidIssuer = jwtSettings["Issuer"],
-                        ValidateAudience = true,
-                        ValidAudience = jwtSettings["Audience"],
-                        ValidateLifetime = true,
-                        ClockSkew = TimeSpan.Zero
-                    };
-                });
-
+            
+            builder.Services.ConfigureJWT(builder.Configuration);
             builder.Services.ConfigureIdentity(builder.Configuration);
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
             builder.Services.ConfigureDependencyInjection();

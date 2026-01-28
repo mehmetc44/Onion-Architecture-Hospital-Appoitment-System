@@ -6,6 +6,7 @@ using Appointment.Application.DTO.Auth;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 
 namespace Appointment.Persistence.Service;
 
