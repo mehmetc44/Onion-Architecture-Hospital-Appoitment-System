@@ -15,17 +15,20 @@ public class UserService : IUserService
         _userManager = userManager;
     }
 
-    public int TotalUsersCount => throw new NotImplementedException();
 
     public async Task<CreateUserResponseDTO> CreateAsync(CreateUserDTO dto)
     {
         var user = new AspUser
         {
-            UserName = dto.TCKimlikNo,
-            Email = dto.Email,
             FirstName = dto.FirstName,
             LastName = dto.LastName,
-            DateOfBirth = dto.DateOfBirth
+            UserName = dto.TCKimlikNo,
+            NormalizedUserName = dto.TCKimlikNo.ToUpper(),
+            Email = dto.Email,
+            NormalizedEmail = dto.Email.ToUpper(),
+            EmailConfirmed = true,
+            DateOfBirth = dto.DateOfBirth,
+            SecurityStamp = Guid.NewGuid().ToString()
         };
 
         var result = await _userManager.CreateAsync(user, dto.Password);
@@ -52,18 +55,4 @@ public class UserService : IUserService
 
     }
 
-    public Task<bool> HasRolePermissionToEndpointAsync(string name, string code)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdatePasswordAsync(string userId, string resetToken, string newPassword)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateRefreshTokenAsync(string refreshToken, AspUser user, DateTime accessTokenDate, int addOnAccessTokenDate)
-    {
-        throw new NotImplementedException();
-    }
 }
