@@ -25,7 +25,8 @@ namespace Appointment.WebUI.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var dto = new CreateUserDTO{
+            var dto = new CreateUserDTO
+            {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 TCKimlikNo = model.TCKimlikNo,
@@ -49,50 +50,51 @@ namespace Appointment.WebUI.Controllers
         }
 
         [HttpPost("login")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (!model.SelectedRole.HasValue)
+            {
+                ModelState.AddModelError("", "Lütfen bir rol seçiniz.");
+                return View(model);
+            }
 
             var dto = new LoginDTO
             {
                 UserNameOrEmail = model.UserNameOrEmail,
-                Password = model.Password
+                Password = model.Password,
+                SelectedRole = model.SelectedRole
             };
 
-            try
-            {
-                var result = await _authService.LoginAsync(dto, 1);
+            var result = await _authService.LoginAsync(dto);
 
-                if (result.Succeeded)
-                {
-                    Response.Cookies.Append("token", result.Token!, 
-                        new Microsoft.AspNetCore.Http.CookieOptions 
-                        { 
-                            HttpOnly = true, 
-                            Secure = true,
-                            SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                            Expires = DateTimeOffset.UtcNow.AddHours(1)
-                        });
-                    Response.Cookies.Append("refreshToken", result.RefreshToken!, 
-                        new Microsoft.AspNetCore.Http.CookieOptions 
-                        { 
-                            HttpOnly = true, 
-                            Secure = true,
-                            SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict,
-                            Expires = DateTimeOffset.UtcNow.AddDays(7)
-                        });
-                    
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ModelState.AddModelError("", result.Message ?? "Giriş yapılırken bir hata oluştu.");
-            }
-            catch (Exception ex)
+            if (!result.Succeeded)
             {
-                ModelState.AddModelError("", ex.Message ?? "Giriş yapılırken bir hata oluştu.");
+                ModelState.AddModelError("", result.Message ?? "Giriş başarısız.");
+                return View(model);
             }
-            
-            return View(model);
+
+            return model.SelectedRole.Value switch
+            {
+                Appointment.Domain.Enums.UserRole.Admin
+                    => RedirectToAction("Index", "Admin"),
+
+                Appointment.Domain.Enums.UserRole.Doctor
+                    => RedirectToAction("Index", "Doctor"),
+
+                _ => RedirectToAction("Appointment", "Home")
+            };
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _authService.LogoutAsync();
+            return RedirectToAction("Login", "Account");
+        }
+
     }
 }

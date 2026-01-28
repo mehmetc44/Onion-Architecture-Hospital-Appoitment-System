@@ -3,10 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Appointment.Application\Appointment.Application.csproj" />
     <ProjectReference Include="..\..\Core\Appointment.Domain\Appointment.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="db/" />
+    <ProjectReference Include="..\Appointment.Persistence\Appointment.Persistence.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

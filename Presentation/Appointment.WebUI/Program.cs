@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
+using Appointment.Infrastructure.Services;
 
 namespace Appointment.WebUI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
-            builder.Services.ConfigureJWT(builder.Configuration);
             builder.Services.ConfigureIdentity(builder.Configuration);
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
             builder.Services.ConfigureDependencyInjection();
@@ -26,6 +26,11 @@ namespace Appointment.WebUI
             var app = builder.Build();
 
             // --- Middleware ---
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await SeedService.SeedAsync(services);
+            }
             if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

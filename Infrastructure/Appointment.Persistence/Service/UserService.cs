@@ -29,6 +29,12 @@ public class UserService : IUserService
         };
 
         var result = await _userManager.CreateAsync(user, dto.Password);
+        
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, "User");
+        }
+        
         return new CreateUserResponseDTO { Succeeded = result.Succeeded, Message = result.Succeeded ? "Kullanıcı başarıyla oluşturuldu." : string.Join("; ", result.Errors.Select(e => e.Description)) };
     }
 

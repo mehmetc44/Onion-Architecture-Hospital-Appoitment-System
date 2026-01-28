@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Appointment.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +32,7 @@ namespace Appointment.Persistence.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
@@ -59,25 +58,13 @@ namespace Appointment.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Departments",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -193,8 +180,7 @@ namespace Appointment.Persistence.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
-                    CityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CityId1 = table.Column<string>(type: "TEXT", nullable: false),
+                    CityId = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -202,11 +188,11 @@ namespace Appointment.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Hospitals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Hospitals_Cities_CityId1",
-                        column: x => x.CityId1,
+                        name: "FK_Hospitals_Cities_CityId",
+                        column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,8 +201,7 @@ namespace Appointment.Persistence.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    HospitalId = table.Column<int>(type: "INTEGER", nullable: false),
-                    HospitalId1 = table.Column<string>(type: "TEXT", nullable: false),
+                    HospitalId = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -224,11 +209,11 @@ namespace Appointment.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Polyclinics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Polyclinics_Hospitals_HospitalId1",
-                        column: x => x.HospitalId1,
+                        name: "FK_Polyclinics_Hospitals_HospitalId",
+                        column: x => x.HospitalId,
                         principalTable: "Hospitals",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,9 +222,7 @@ namespace Appointment.Persistence.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    PolyclinicId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PolyclinicId1 = table.Column<string>(type: "TEXT", nullable: true),
-                    DepartmentId = table.Column<string>(type: "TEXT", nullable: true),
+                    PolyclinicId = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -253,15 +236,11 @@ namespace Appointment.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Doctors_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Doctors_Polyclinics_PolyclinicId1",
-                        column: x => x.PolyclinicId1,
+                        name: "FK_Doctors_Polyclinics_PolyclinicId",
+                        column: x => x.PolyclinicId,
                         principalTable: "Polyclinics",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -271,9 +250,8 @@ namespace Appointment.Persistence.Migrations
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     AppointmentDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    DoctorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DoctorId1 = table.Column<string>(type: "TEXT", nullable: true),
+                    PatientId = table.Column<string>(type: "TEXT", nullable: false),
+                    DoctorId = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -281,125 +259,28 @@ namespace Appointment.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Appointments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Appointments_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Appointments_AspNetUsers_PatientId",
+                        column: x => x.PatientId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Appointments_Doctors_DoctorId1",
-                        column: x => x.DoctorId1,
+                        name: "FK_Appointments_Doctors_DoctorId",
+                        column: x => x.DoctorId,
                         principalTable: "Doctors",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "1", null, "Admin", "ADMIN" },
-                    { "2", null, "Doctor", "DOCTOR" },
-                    { "3", null, "User", "USER" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Cities",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { "1", "Adana" },
-                    { "10", "Artvin" },
-                    { "11", "Aydın" },
-                    { "12", "Balıkesir" },
-                    { "13", "Bartın" },
-                    { "14", "Batman" },
-                    { "15", "Bayburt" },
-                    { "16", "Bilecik" },
-                    { "17", "Bingöl" },
-                    { "18", "Bitlis" },
-                    { "19", "Bolu" },
-                    { "2", "Adıyaman" },
-                    { "20", "Burdur" },
-                    { "21", "Bursa" },
-                    { "22", "Çanakkale" },
-                    { "23", "Çankırı" },
-                    { "24", "Çorum" },
-                    { "25", "Denizli" },
-                    { "26", "Diyarbakır" },
-                    { "27", "Düzce" },
-                    { "28", "Edirne" },
-                    { "29", "Elazığ" },
-                    { "3", "Afyonkarahisar" },
-                    { "30", "Erzincan" },
-                    { "31", "Erzurum" },
-                    { "32", "Eskişehir" },
-                    { "33", "Gaziantep" },
-                    { "34", "Giresun" },
-                    { "35", "Gümüşhane" },
-                    { "36", "Hakkari" },
-                    { "37", "Hatay" },
-                    { "38", "Iğdır" },
-                    { "39", "Isparta" },
-                    { "4", "Ağrı" },
-                    { "40", "İstanbul" },
-                    { "41", "İzmir" },
-                    { "42", "Kahramanmaraş" },
-                    { "43", "Karabük" },
-                    { "44", "Karaman" },
-                    { "45", "Kars" },
-                    { "46", "Kastamonu" },
-                    { "47", "Kayseri" },
-                    { "48", "Kilis" },
-                    { "49", "Kırıkkale" },
-                    { "5", "Aksaray" },
-                    { "50", "Kırklareli" },
-                    { "51", "Kırşehir" },
-                    { "52", "Kocaeli" },
-                    { "53", "Konya" },
-                    { "54", "Kütahya" },
-                    { "55", "Malatya" },
-                    { "56", "Manisa" },
-                    { "57", "Mardin" },
-                    { "58", "Mersin" },
-                    { "59", "Muğla" },
-                    { "6", "Amasya" },
-                    { "60", "Muş" },
-                    { "61", "Nevşehir" },
-                    { "62", "Niğde" },
-                    { "63", "Ordu" },
-                    { "64", "Osmaniye" },
-                    { "65", "Rize" },
-                    { "66", "Sakarya" },
-                    { "67", "Samsun" },
-                    { "68", "Şanlıurfa" },
-                    { "69", "Siirt" },
-                    { "7", "Ankara" },
-                    { "70", "Sinop" },
-                    { "71", "Sivas" },
-                    { "72", "Şırnak" },
-                    { "73", "Tekirdağ" },
-                    { "74", "Tokat" },
-                    { "75", "Trabzon" },
-                    { "76", "Tunceli" },
-                    { "77", "Uşak" },
-                    { "78", "Van" },
-                    { "79", "Yalova" },
-                    { "8", "Antalya" },
-                    { "80", "Yozgat" },
-                    { "81", "Zonguldak" },
-                    { "9", "Ardahan" }
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DoctorId1",
+                name: "IX_Appointments_DoctorId",
                 table: "Appointments",
-                column: "DoctorId1");
+                column: "DoctorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_UserId",
+                name: "IX_Appointments_PatientId",
                 table: "Appointments",
-                column: "UserId");
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -439,14 +320,9 @@ namespace Appointment.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_DepartmentId",
+                name: "IX_Doctors_PolyclinicId",
                 table: "Doctors",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Doctors_PolyclinicId1",
-                table: "Doctors",
-                column: "PolyclinicId1");
+                column: "PolyclinicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_UserId",
@@ -455,14 +331,14 @@ namespace Appointment.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Hospitals_CityId1",
+                name: "IX_Hospitals_CityId",
                 table: "Hospitals",
-                column: "CityId1");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Polyclinics_HospitalId1",
+                name: "IX_Polyclinics_HospitalId",
                 table: "Polyclinics",
-                column: "HospitalId1");
+                column: "HospitalId");
         }
 
         /// <inheritdoc />
@@ -494,9 +370,6 @@ namespace Appointment.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Polyclinics");
