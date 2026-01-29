@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Content Include="Repositories/a/.config/dotnet-tools.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Appointment.Domain\Appointment.Domain.csproj" />
   </ItemGroup>
 

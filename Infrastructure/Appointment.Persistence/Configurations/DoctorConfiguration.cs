@@ -8,16 +8,17 @@ namespace Appointment.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Doctor> builder)
         {
-            builder.HasKey(x => x.Id);
+        builder.HasKey(d => d.Id);
 
-            builder.HasOne(x => x.User)
-                .WithOne(x => x.Doctor)
-                .HasForeignKey<Doctor>(x => x.UserId);
+        builder.HasOne(d => d.User)
+            .WithOne(u => u.Doctor)   
+            .HasForeignKey<Doctor>(d => d.Id)  
+            .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(x => x.Polyclinic)
-                .WithMany(x => x.Doctors)
-                .HasForeignKey(x => x.PolyclinicId)
-                .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(d => d.Department)
+            .WithMany(dep => dep.Doctors)
+            .HasForeignKey(d => d.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

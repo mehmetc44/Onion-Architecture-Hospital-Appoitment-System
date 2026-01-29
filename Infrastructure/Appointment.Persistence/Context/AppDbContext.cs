@@ -10,7 +10,7 @@ namespace Appointment.Persistence.Context
     {
         public DbSet<City> Cities { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
-        public DbSet<Polyclinic> Polyclinics { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<HospitalAppointment> Appointments { get; set; }
 
@@ -20,7 +20,7 @@ namespace Appointment.Persistence.Context
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new DoctorConfiguration());
-            modelBuilder.ApplyConfiguration(new PolyclinicConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new HospitalAppointmentConfiguration());
             modelBuilder.ApplyConfiguration(new HospitalConfiguration());
         }

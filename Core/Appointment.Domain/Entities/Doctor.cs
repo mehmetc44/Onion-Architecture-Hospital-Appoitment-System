@@ -1,16 +1,24 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Appointment.Domain.Entities.Common;
 using Appointment.Domain.Entities.Identity;
 namespace Appointment.Domain.Entities;
 
-public class Doctor : BaseEntity
+
+    public class Doctor
 {
-    public string UserId { get; set; } = null!;
+    [Key]
+    [ForeignKey(nameof(User))] 
+    public string Id { get; set; } = null!;
+
     public AspUser User { get; set; } = null!;
 
-    public string PolyclinicId { get; set; } = null!; // Bölüm seçilince doktorlar filtrelenecek
-    public Polyclinic Polyclinic { get; set; } = null!;
+    public string DepartmentId { get; set; } = null!;
+    public Department Department { get; set; } = null!;
 
     public ICollection<HospitalAppointment> Appointments { get; set; } = new List<HospitalAppointment>();
 }
+
+
 

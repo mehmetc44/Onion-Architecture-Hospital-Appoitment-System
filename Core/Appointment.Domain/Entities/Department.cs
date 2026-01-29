@@ -3,7 +3,7 @@ using Appointment.Domain.Entities.Common;
 
 namespace Appointment.Domain.Entities;
 
-public class Polyclinic : BaseEntity
+public class Department : BaseEntity
 {
     public string Name { get; set; } = null!;
 

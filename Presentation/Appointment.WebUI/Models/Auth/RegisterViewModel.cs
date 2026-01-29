@@ -14,7 +14,6 @@ public class RegisterViewModel
 
     [Required(ErrorMessage = "TC Kimlik No zorunludur.")]
     [StringLength(11, MinimumLength = 11, ErrorMessage = "TC Kimlik No 11 haneli olmalıdır.")]
-    [RegularExpression(@"^[1-9][0-9]{10}$", ErrorMessage = "Geçerli bir TC Kimlik No giriniz.")]
     [Display(Name = "TC Kimlik No")]
     public string TCKimlikNo { get; set; } = null!;
 

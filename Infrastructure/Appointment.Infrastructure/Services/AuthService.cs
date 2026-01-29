@@ -2,7 +2,7 @@ using Appointment.Application.Abstraction.Service;
 using Appointment.Application.DTO;
 using Appointment.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-namespace Appointment.Persistence.Service;
+namespace Appointment.Infrastructure.Services;
 
 public class AuthService : IAuthService
 {

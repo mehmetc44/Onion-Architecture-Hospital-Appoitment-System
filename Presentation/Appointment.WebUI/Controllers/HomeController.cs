@@ -10,10 +10,23 @@ namespace Appointment.WebUI.Controllers
         {
             return View();
         }
-        public IActionResult CreateAppointment()
+        public IActionResult Active()
         {
             return View();
         }
+        public IActionResult Message()
+        {
+            return View();
+        }
+        public IActionResult Past()
+        {
+            return View();
+        }
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
 
 
     }

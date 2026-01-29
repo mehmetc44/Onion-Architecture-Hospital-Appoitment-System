@@ -4,7 +4,7 @@ using Appointment.Application.DTO;
 using Appointment.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace Appointment.Persistence.Service;
+namespace Appointment.Infrastructure.Services;
 
 public class UserService : IUserService
 {
@@ -35,7 +35,7 @@ public class UserService : IUserService
         
         if (result.Succeeded)
         {
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, Appointment.Domain.Consts.Roles.User);
         }
         
         return new CreateUserResponseDTO { Succeeded = result.Succeeded, Message = result.Succeeded ? "Kullanıcı başarıyla oluşturuldu." : string.Join("; ", result.Errors.Select(e => e.Description)) };

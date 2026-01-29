@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Appointment.Persistence.Configurations
 {
-    public class PolyclinicConfiguration : IEntityTypeConfiguration<Polyclinic>
+    public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
     {
-        public void Configure(EntityTypeBuilder<Polyclinic> builder)
+        public void Configure(EntityTypeBuilder<Department> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Hospital)
-                .WithMany(x => x.Polyclinics)
+                .WithMany(x => x.Departments)
                 .HasForeignKey(x => x.HospitalId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

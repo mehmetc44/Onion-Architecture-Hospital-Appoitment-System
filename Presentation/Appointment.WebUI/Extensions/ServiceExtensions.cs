@@ -4,7 +4,7 @@ using Appointment.Application.Abstraction.Service;
 using Appointment.Application.DTO;
 using Appointment.Domain.Entities.Identity;
 using Appointment.Persistence.Context;
-using Appointment.Persistence.Service;
+using Appointment.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

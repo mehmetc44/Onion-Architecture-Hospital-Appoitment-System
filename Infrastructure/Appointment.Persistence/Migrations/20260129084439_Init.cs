@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Appointment.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -196,7 +196,7 @@ namespace Appointment.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Polyclinics",
+                name: "Departments",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -207,9 +207,9 @@ namespace Appointment.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Polyclinics", x => x.Id);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Polyclinics_Hospitals_HospitalId",
+                        name: "FK_Departments_Hospitals_HospitalId",
                         column: x => x.HospitalId,
                         principalTable: "Hospitals",
                         principalColumn: "Id",
@@ -222,7 +222,7 @@ namespace Appointment.Persistence.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    PolyclinicId = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartmentId = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -236,9 +236,9 @@ namespace Appointment.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Doctors_Polyclinics_PolyclinicId",
-                        column: x => x.PolyclinicId,
-                        principalTable: "Polyclinics",
+                        name: "FK_Doctors_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -320,9 +320,14 @@ namespace Appointment.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctors_PolyclinicId",
+                name: "IX_Departments_HospitalId",
+                table: "Departments",
+                column: "HospitalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Doctors_DepartmentId",
                 table: "Doctors",
-                column: "PolyclinicId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_UserId",
@@ -334,11 +339,6 @@ namespace Appointment.Persistence.Migrations
                 name: "IX_Hospitals_CityId",
                 table: "Hospitals",
                 column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Polyclinics_HospitalId",
-                table: "Polyclinics",
-                column: "HospitalId");
         }
 
         /// <inheritdoc />
@@ -372,7 +372,7 @@ namespace Appointment.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Polyclinics");
+                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Hospitals");

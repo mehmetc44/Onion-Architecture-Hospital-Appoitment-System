@@ -15,6 +15,21 @@ namespace Appointment.WebUI.Controllers
         {
             return View();
         }
+        [HttpGet("/admin/departments")]
+        public ActionResult Departments()
+        {
+            return View();
+        }
+        [HttpGet("/admin/doctors")]
+        public ActionResult Doctors()
+        {
+            return View();
+        }
+        [HttpGet("/admin/profile")]
+        public ActionResult Profile()
+        {
+            return View();
+        }
 
     }
 }

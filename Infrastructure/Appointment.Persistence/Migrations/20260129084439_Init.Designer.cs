@@ -3,6 +3,7 @@ using System;
 using Appointment.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appointment.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260129084439_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -69,13 +72,26 @@ namespace Appointment.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Doctors");
                 });
@@ -118,21 +134,10 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("AppointmentTime")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DepartmentId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("DoctorId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("HospitalId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -148,11 +153,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("HospitalId");
 
                     b.HasIndex("PatientId");
 
@@ -383,7 +384,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "User")
                         .WithOne("Doctor")
-                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "Id")
+                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -405,22 +406,10 @@ namespace Appointment.Persistence.Migrations
 
             modelBuilder.Entity("Appointment.Domain.Entities.HospitalAppointment", b =>
                 {
-                    b.HasOne("Appointment.Domain.Entities.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Appointment.Domain.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "Patient")
@@ -429,11 +418,7 @@ namespace Appointment.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Department");
-
                     b.Navigation("Doctor");
-
-                    b.Navigation("Hospital");
 
                     b.Navigation("Patient");
                 });

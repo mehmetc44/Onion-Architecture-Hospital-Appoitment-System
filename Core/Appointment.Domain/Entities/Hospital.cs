@@ -11,6 +11,6 @@ public class Hospital : BaseEntity
     public string CityId { get; set; } = null!; 
     public City City { get; set; } = null!;
 
-    public ICollection<Polyclinic> Polyclinics { get; set; } = new List<Polyclinic>();
+    public ICollection<Department> Departments { get; set; } = new List<Department>();
 }
 

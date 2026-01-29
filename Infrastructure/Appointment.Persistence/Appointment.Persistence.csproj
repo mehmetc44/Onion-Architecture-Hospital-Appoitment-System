@@ -25,7 +25,8 @@
     <Folder Include="Configurations/" />
     <Folder Include="db/" />
     <Folder Include="Migrations/" />
-    <Folder Include="Service/" />
+    <Folder Include="Repositories/" />
+    <Folder Include="Repositories/Department/" />
   </ItemGroup>
 
   <PropertyGroup>

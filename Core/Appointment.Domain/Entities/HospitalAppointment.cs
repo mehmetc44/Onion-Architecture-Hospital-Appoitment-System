@@ -7,10 +7,16 @@ namespace Appointment.Domain.Entities;
 public class HospitalAppointment : BaseEntity
 {
     public DateTime AppointmentDate { get; set; }
+    public TimeSpan AppointmentTime { get; set; }
     public AppointmentStatus Status { get; set; }
-    public string PatientId { get; set; } = null!; 
+    public string PatientId { get; set; } = null!;
     public AspUser Patient { get; set; } = null!;
-    public string DoctorId { get; set; } = null!; 
+    public string DoctorId { get; set; } = null!;
     public Doctor Doctor { get; set; } = null!;
+    public string HospitalId { get; set; } = null!;
+    public Hospital Hospital { get; set; } = null!;
+    public string DepartmentId { get; set; } = null!;
+    public Department Department { get; set; } = null!;
 }
+
 

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Consts/" />
     <Folder Include="Entities/Common/" />
     <Folder Include="Enums/" />
   </ItemGroup>

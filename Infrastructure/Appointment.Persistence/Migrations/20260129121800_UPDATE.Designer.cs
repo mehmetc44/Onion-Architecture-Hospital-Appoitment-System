@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appointment.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260128130447_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260129121800_UPDATE")]
+    partial class UPDATE
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,7 +41,7 @@ namespace Appointment.Persistence.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
+            modelBuilder.Entity("Appointment.Domain.Entities.Department", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -49,23 +49,36 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PolyclinicId")
+                    b.Property<string>("HospitalId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
+                    b.HasKey("Id");
+
+                    b.HasIndex("HospitalId");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DepartmentId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PolyclinicId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Doctors");
                 });
@@ -108,10 +121,21 @@ namespace Appointment.Persistence.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<TimeSpan>("AppointmentTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HospitalId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -127,7 +151,11 @@ namespace Appointment.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
 
                     b.HasIndex("PatientId");
 
@@ -235,32 +263,6 @@ namespace Appointment.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Appointment.Domain.Entities.Polyclinic", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("HospitalId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HospitalId");
-
-                    b.ToTable("Polyclinics");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -363,21 +365,32 @@ namespace Appointment.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Appointment.Domain.Entities.Department", b =>
+                {
+                    b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
+                        .WithMany("Departments")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Hospital");
+                });
+
             modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
                 {
-                    b.HasOne("Appointment.Domain.Entities.Polyclinic", "Polyclinic")
+                    b.HasOne("Appointment.Domain.Entities.Department", "Department")
                         .WithMany("Doctors")
-                        .HasForeignKey("PolyclinicId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "User")
                         .WithOne("Doctor")
-                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "UserId")
+                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Polyclinic");
+                    b.Navigation("Department");
 
                     b.Navigation("User");
                 });
@@ -395,10 +408,22 @@ namespace Appointment.Persistence.Migrations
 
             modelBuilder.Entity("Appointment.Domain.Entities.HospitalAppointment", b =>
                 {
+                    b.HasOne("Appointment.Domain.Entities.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Appointment.Domain.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "Patient")
@@ -407,20 +432,13 @@ namespace Appointment.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Department");
+
                     b.Navigation("Doctor");
 
-                    b.Navigation("Patient");
-                });
-
-            modelBuilder.Entity("Appointment.Domain.Entities.Polyclinic", b =>
-                {
-                    b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
-                        .WithMany("Polyclinics")
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Hospital");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -479,6 +497,11 @@ namespace Appointment.Persistence.Migrations
                     b.Navigation("Hospitals");
                 });
 
+            modelBuilder.Entity("Appointment.Domain.Entities.Department", b =>
+                {
+                    b.Navigation("Doctors");
+                });
+
             modelBuilder.Entity("Appointment.Domain.Entities.Doctor", b =>
                 {
                     b.Navigation("Appointments");
@@ -486,17 +509,12 @@ namespace Appointment.Persistence.Migrations
 
             modelBuilder.Entity("Appointment.Domain.Entities.Hospital", b =>
                 {
-                    b.Navigation("Polyclinics");
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Appointment.Domain.Entities.Identity.AspUser", b =>
                 {
                     b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("Appointment.Domain.Entities.Polyclinic", b =>
-                {
-                    b.Navigation("Doctors");
                 });
 #pragma warning restore 612, 618
         }

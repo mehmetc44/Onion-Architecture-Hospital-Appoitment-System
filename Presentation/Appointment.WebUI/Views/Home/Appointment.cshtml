@@ -10,15 +10,6 @@
 <script src="~/js/appointment.js"></script>
 }
 
-@{
-    ViewData["Title"] = "Randevu Al";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@section Sidebar {
-    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
-}
-
 <h1>Randevu Al</h1>
 
 <form asp-action="CreateAppointment" method="post" id="appointmentForm">

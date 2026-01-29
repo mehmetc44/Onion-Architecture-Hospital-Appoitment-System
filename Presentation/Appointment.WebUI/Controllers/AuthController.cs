@@ -85,7 +85,9 @@ namespace Appointment.WebUI.Controllers
                 Appointment.Domain.Enums.UserRole.Doctor
                     => RedirectToAction("Index", "Doctor"),
 
-                _ => RedirectToAction("Appointment", "Home")
+                Appointment.Domain.Enums.UserRole.User
+                    => RedirectToAction("Appointment", "Home"),
+                _ => throw new NotImplementedException()
             };
         }
         [HttpPost]
