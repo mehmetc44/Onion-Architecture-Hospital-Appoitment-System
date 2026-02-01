@@ -17,12 +17,12 @@ namespace Appointment.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new CityConfiguration());
-            modelBuilder.ApplyConfiguration(new RoleConfiguration());
-            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
-            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
-            modelBuilder.ApplyConfiguration(new HospitalAppointmentConfiguration());
-            modelBuilder.ApplyConfiguration(new HospitalConfiguration());
+            modelBuilder.Entity<Doctor>()
+        .HasOne(d => d.User)         // Doctor'un bir User'ı var
+        .WithOne(u => u.Doctor)      // User'ın bir Doctor'u var
+        .HasForeignKey<Doctor>(d => d.UserId) // Foreign Key Doctor tablosundaki UserId'dir
+        .OnDelete(DeleteBehavior.Cascade);    // User silinirse Doctor da silinsin (isteğe bağlı)
+
         }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)

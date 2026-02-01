@@ -1,11 +1,18 @@
 using System;
 using Appointment.Domain.Entities.Identity;
-using Appointment.Application.Enums;
+using Appointment.Domain.Enums;
 using Appointment.Domain.Entities.Common;
 namespace Appointment.Domain.Entities;
 
 public class HospitalAppointment : BaseEntity
 {
+    public HospitalAppointment()
+    {
+        Id = Guid.NewGuid().ToString();
+        Status = AppointmentStatus.Active; 
+        CreatedDate = DateTime.Now;
+        UpdatedDate = DateTime.Now;
+    }
     public DateTime AppointmentDate { get; set; }
     public TimeSpan AppointmentTime { get; set; }
     public AppointmentStatus Status { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Appointment.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appointment.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260129125228_Uppppdate")]
+    partial class Uppppdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -27,6 +30,7 @@ namespace Appointment.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -85,9 +89,6 @@ namespace Appointment.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Doctors");
                 });
@@ -379,7 +380,7 @@ namespace Appointment.Persistence.Migrations
                     b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
                         .WithMany("Departments")
                         .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Hospital");
@@ -390,12 +391,12 @@ namespace Appointment.Persistence.Migrations
                     b.HasOne("Appointment.Domain.Entities.Department", "Department")
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "User")
                         .WithOne("Doctor")
-                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "UserId")
+                        .HasForeignKey("Appointment.Domain.Entities.Doctor", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -409,7 +410,7 @@ namespace Appointment.Persistence.Migrations
                     b.HasOne("Appointment.Domain.Entities.City", "City")
                         .WithMany("Hospitals")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("City");
@@ -426,7 +427,7 @@ namespace Appointment.Persistence.Migrations
                     b.HasOne("Appointment.Domain.Entities.Doctor", "Doctor")
                         .WithMany("Appointments")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Appointment.Domain.Entities.Hospital", "Hospital")
@@ -438,7 +439,7 @@ namespace Appointment.Persistence.Migrations
                     b.HasOne("Appointment.Domain.Entities.Identity.AspUser", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Department");

@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
 using Appointment.Infrastructure.Services;
+using Appointment.Application.Mapper;
 
 namespace Appointment.WebUI
 {
@@ -22,7 +23,8 @@ namespace Appointment.WebUI
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
             builder.Services.ConfigureDependencyInjection();
             builder.Services.AddControllersWithViews();
-
+            // typeof(MappingProfile).Assembly diyerek MappingProfile'ın olduğu tüm projeyi taratıyoruz
+    builder.Services.AddAutoMapper(typeof(AutoMappingProfile).Assembly);
             var app = builder.Build();
 
             // --- Middleware ---
@@ -50,7 +52,6 @@ namespace Appointment.WebUI
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
             app.Run();
         }
     }

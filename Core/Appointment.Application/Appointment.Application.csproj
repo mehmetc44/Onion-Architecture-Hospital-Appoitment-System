@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Content Include="Repositories/a/.config/dotnet-tools.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Appointment.Domain\Appointment.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstraction/" />
-    <Folder Include="Abstraction/Service/" />
+    <Folder Include="DTO/City/" />
+    <Folder Include="DTO/Doctor/" />
+    <Folder Include="DTO/Hospital/" />
+    <Folder Include="Repositories/City/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
   <PropertyGroup>

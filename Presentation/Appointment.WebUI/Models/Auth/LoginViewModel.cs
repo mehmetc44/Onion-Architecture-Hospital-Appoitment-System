@@ -1,7 +1,7 @@
 namespace Appointment.WebUI.Models;
 
 using System.ComponentModel.DataAnnotations;
-using Appointment.Domain.Enums;
+using global::Appointment.Domain.Enums;
 
 public class LoginViewModel
 {

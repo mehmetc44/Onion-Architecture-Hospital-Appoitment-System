@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Appointment.Application.Enums;
 
 namespace Appointment.Infrastructure.Services
 {
@@ -92,7 +91,7 @@ namespace Appointment.Infrastructure.Services
             var rnd = new Random();
             string firstName = DoctorFirstNames[rnd.Next(DoctorFirstNames.Length)];
             string lastName = DoctorLastNames[rnd.Next(DoctorLastNames.Length)];
-            string email = $"{firstName.ToLower()}.{lastName.ToLower()}{rnd.Next(1000,9999)}@example.com";
+            string email = $"{firstName.ToLower()}.{lastName.ToLower()}{rnd.Next(1000, 9999)}@example.com";
 
             var user = await userManager.FindByEmailAsync(email);
             if (user != null) return user;
@@ -101,7 +100,7 @@ namespace Appointment.Infrastructure.Services
             {
                 FirstName = firstName,
                 LastName = lastName,
-                UserName = $"{"00000000"+rnd.Next(100,999)}",
+                UserName = $"{"00000000" + rnd.Next(100, 999)}",
                 Email = email,
                 EmailConfirmed = true,
                 DateOfBirth = new DateTime(1980, 1, 1),
@@ -143,7 +142,7 @@ namespace Appointment.Infrastructure.Services
         {
             if (context.Cities.Any()) return;
 
-            var cities = new List<string> { "Adana","Ankara","İstanbul","İzmir","Bursa","Antalya" };
+            var cities = new List<string> { "Adana", "Ankara", "İstanbul", "İzmir", "Bursa", "Antalya" };
 
             context.Cities.AddRange(
                 cities.Select(c => new City
@@ -162,18 +161,18 @@ namespace Appointment.Infrastructure.Services
             if (context.Hospitals.Any()) return;
 
             context.Hospitals.AddRange(
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Merkez Devlet Hastanesi", Address = "Merkez Mah.", CityId = context.Cities.First(c => c.Name=="Ankara").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Ankara Özel Hastanesi", Address = "Atatürk Cad.", CityId = context.Cities.First(c => c.Name=="Ankara").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "İstanbul Devlet Hastanesi", Address = "Taksim Meydanı", CityId = context.Cities.First(c => c.Name=="İstanbul").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Umut Hastanesi", Address = "Kadıköy Cad.", CityId = context.Cities.First(c => c.Name=="İstanbul").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "İzmir Devlet Hastanesi", Address = "Konak Mah.", CityId = context.Cities.First(c => c.Name=="İzmir").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel İzmir Hastanesi", Address = "Bornova Cad.", CityId = context.Cities.First(c => c.Name=="İzmir").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Bursa Devlet Hastanesi", Address = "Osmangazi Mah.", CityId = context.Cities.First(c => c.Name=="Bursa").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Bursa Hastanesi", Address = "Nilüfer Cad.", CityId = context.Cities.First(c => c.Name=="Bursa").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Antalya Devlet Hastanesi", Address = "Muratpaşa Mah.", CityId = context.Cities.First(c => c.Name=="Antalya").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Antalya Hastanesi", Address = "Konyaaltı Cad.", CityId = context.Cities.First(c => c.Name=="Antalya").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Adana Devlet Hastanesi", Address = "Seyhan Mah.", CityId = context.Cities.First(c => c.Name=="Adana").Id },
-                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Adana Hastanesi", Address = "Çukurova Cad.", CityId = context.Cities.First(c => c.Name=="Adana").Id }
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Merkez Devlet Hastanesi", Address = "Merkez Mah.", CityId = context.Cities.First(c => c.Name == "Ankara").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Ankara Özel Hastanesi", Address = "Atatürk Cad.", CityId = context.Cities.First(c => c.Name == "Ankara").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "İstanbul Devlet Hastanesi", Address = "Taksim Meydanı", CityId = context.Cities.First(c => c.Name == "İstanbul").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Umut Hastanesi", Address = "Kadıköy Cad.", CityId = context.Cities.First(c => c.Name == "İstanbul").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "İzmir Devlet Hastanesi", Address = "Konak Mah.", CityId = context.Cities.First(c => c.Name == "İzmir").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel İzmir Hastanesi", Address = "Bornova Cad.", CityId = context.Cities.First(c => c.Name == "İzmir").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Bursa Devlet Hastanesi", Address = "Osmangazi Mah.", CityId = context.Cities.First(c => c.Name == "Bursa").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Bursa Hastanesi", Address = "Nilüfer Cad.", CityId = context.Cities.First(c => c.Name == "Bursa").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Antalya Devlet Hastanesi", Address = "Muratpaşa Mah.", CityId = context.Cities.First(c => c.Name == "Antalya").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Antalya Hastanesi", Address = "Konyaaltı Cad.", CityId = context.Cities.First(c => c.Name == "Antalya").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Adana Devlet Hastanesi", Address = "Seyhan Mah.", CityId = context.Cities.First(c => c.Name == "Adana").Id },
+                new Hospital { Id = Guid.NewGuid().ToString(), Name = "Özel Adana Hastanesi", Address = "Çukurova Cad.", CityId = context.Cities.First(c => c.Name == "Adana").Id }
             );
 
             await context.SaveChangesAsync();
@@ -182,7 +181,7 @@ namespace Appointment.Infrastructure.Services
         // ---------------- DEPARTMENTS + DOCTORS ----------------
         private static async Task SeedDepartmentsAndDoctors(AppDbContext context, UserManager<AspUser> userManager)
         {
-            if (context.Departments.Any()) return;
+            if (await context.Departments.AnyAsync()) return;
 
             var hospitals = await context.Hospitals.ToListAsync();
             var departmentNames = new[] { "Dermatoloji", "Göz Hastalıkları", "Kulak Burun Boğaz", "Kardiyoloji", "Ortopedi" };
@@ -190,7 +189,7 @@ namespace Appointment.Infrastructure.Services
 
             foreach (var hospital in hospitals)
             {
-                int deptCount = rnd.Next(1, 3); 
+                int deptCount = rnd.Next(1, 3);
                 var selectedDepartments = departmentNames.OrderBy(x => rnd.Next()).Take(deptCount).ToList();
 
                 foreach (var deptName in selectedDepartments)
@@ -202,47 +201,52 @@ namespace Appointment.Infrastructure.Services
                         HospitalId = hospital.Id
                     };
                     context.Departments.Add(department);
-                    await context.SaveChangesAsync();
 
                     var doctorUser = await SeedDoctorUser(userManager);
+
                     var doctor = new Doctor
                     {
-                        Id = doctorUser.Id,         
-                        User = doctorUser,          
+                        Id = Guid.NewGuid().ToString(), // Doktorun kendi biricik ID'si
+                        UserId = doctorUser.Id,         // Identity tarafındaki User ile bağımız
                         DepartmentId = department.Id
+                        // UserName alanını buradan kaldırdık çünkü o AspUser'da var.
                     };
                     context.Doctors.Add(doctor);
-                    await context.SaveChangesAsync();
                 }
             }
+            await context.SaveChangesAsync();
         }
+
 
         // ---------------- APPOINTMENT ----------------
         private static async Task SeedAppointment(AppDbContext context, AspUser patient)
         {
-            if (context.Appointments.Any()) return;
+            if (await context.Appointments.AnyAsync()) return;
 
-            // Rastgele bir doktor seç
+            // SQLite için en güvenli rastgele doktor çekme yöntemi
             var doctor = await context.Doctors
                                       .Include(d => d.Department)
                                       .ThenInclude(dep => dep.Hospital)
-                                      .OrderBy(x => Guid.NewGuid())
+                                      .OrderBy(x => EF.Functions.Random())
                                       .FirstOrDefaultAsync();
 
-            if (doctor == null) return;
-            context.Appointments.Add(new HospitalAppointment
+            if (doctor != null && doctor.Department != null)
             {
-                Id = Guid.NewGuid().ToString(),
-                AppointmentDate = new DateTime(2026, 2, 20),
-                AppointmentTime = new TimeSpan(10, 30, 0),
-                Status = AppointmentStatus.Active,
-                PatientId = patient.Id,
-                DoctorId = doctor.Id,
-                DepartmentId = doctor.DepartmentId,
-                HospitalId = doctor.Department.HospitalId
-            });
+                context.Appointments.Add(new HospitalAppointment
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    AppointmentDate = new DateTime(2026, 2, 20),
+                    AppointmentTime = new TimeSpan(10, 30, 0),
+                    Status = AppointmentStatus.Active,
 
-            await context.SaveChangesAsync();
+                    PatientId = patient.Id,   
+                    DoctorId = doctor.Id,     
+                    DepartmentId = doctor.DepartmentId,
+                    HospitalId = doctor.Department.HospitalId
+                });
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

@@ -6,12 +6,9 @@ using Appointment.Domain.Entities.Identity;
 namespace Appointment.Domain.Entities;
 
 
-    public class Doctor
+    public class Doctor : BaseEntity
 {
-    [Key]
-    [ForeignKey(nameof(User))] 
-    public string Id { get; set; } = null!;
-
+    public string UserId { get; set; } = null!;
     public AspUser User { get; set; } = null!;
 
     public string DepartmentId { get; set; } = null!;
