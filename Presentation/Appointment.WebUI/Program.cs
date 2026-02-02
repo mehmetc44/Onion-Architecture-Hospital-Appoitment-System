@@ -23,11 +23,8 @@ namespace Appointment.WebUI
             builder.Services.ConfigureSQLiteConnection(builder.Configuration);
             builder.Services.ConfigureDependencyInjection();
             builder.Services.AddControllersWithViews();
-            // typeof(MappingProfile).Assembly diyerek MappingProfile'ın olduğu tüm projeyi taratıyoruz
-    builder.Services.AddAutoMapper(typeof(AutoMappingProfile).Assembly);
+            builder.Services.AddAutoMapper(typeof(AutoMappingProfile).Assembly);
             var app = builder.Build();
-
-            // --- Middleware ---
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
