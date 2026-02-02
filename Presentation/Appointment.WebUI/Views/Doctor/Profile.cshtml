@@ -1,24 +1,23 @@
+@model Appointment.Application.DTO.Doctor.ViewDoctorInfoDto
 @{
     ViewData["Title"] = "Doktor Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Sidebar {
-    @await Html.PartialAsync("_SidebarDoctor")
+    @await Html.PartialAsync("Component/_DoctorSidebar.cshtml")
+}
+@section Scripts {
+    <script src="~/js/doctor.js"></script>
 }
 
 <h1>Profil</h1>
 
-<form id="profileForm">
-    <label>Ad Soyad:</label>
-    <input type="text" id="doctorName" value="Dr. Ahmet Kaya"><br><br>
-    <label>TC:</label>
-    <input type="text" id="doctorTC" value="12345678901"><br><br>
-    <label>Bölüm:</label>
-    <input type="text" id="doctorDepartment" value="Kardiyoloji"><br><br>
-    <label>Telefon:</label>
-    <input type="text" id="doctorPhone" value="05551234567"><br><br>
-    <label>Email:</label>
-    <input type="email" id="doctorEmail" value="ahmet@example.com"><br><br>
-    <button type="submit">Güncelle</button>
-</form>
+<div class="profile-box">
+    <p><strong>Ad Soyad:</strong> @Model.FirstName @Model.LastName</p>
+    <p><strong>T.C. Kimlik:</strong> @Model.UserName</p>
+    <p><strong>Doğum Tarihi:</strong> @Model.DateOfBirth</p>
+    <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+    <p><strong>E-Posta:</strong> @Model.Email</p>
+    <p><strong>Uzmanlık Alanı:</strong> @Model.DepartmentName</p>
+    <p><strong>Çalıştığı Hastane:</strong> @Model.HospitalName</p>
+</div>

@@ -7,5 +7,6 @@ namespace Appointment.Application.Abstraction.Service;
 public interface IAuthService
 {
     Task<LoginResponseDTO> LoginAsync(LoginDTO dto);
+    Task<AspUser> GetActiveUserAsync();
     Task LogoutAsync();
 }

@@ -60,7 +60,7 @@
                     <button type="button" class="delay btn btn-warning" onclick="openRescheduleModal('@appointment.Id','@appointment.DoctorId')">
                     Ertele</button>
 
-                    <form asp-controller="Home" asp-action="CancelAppointment" method="post" style="display:inline;">
+                    <form asp-controller="HospitalAppointment" asp-action="CancelAppointment" method="post" style="display:inline;">
 
                         <input type="hidden" name="id" value="@appointment.Id" />
 

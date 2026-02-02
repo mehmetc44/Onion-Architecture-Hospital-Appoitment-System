@@ -1,9 +1,6 @@
-using System;
 using Appointment.Application.Abstraction.Service;
-using Appointment.Application.DTO;
 using Appointment.Application.DTO.Appoitment;
 using Appointment.Application.DTO.HospitalAppoitment;
-using Appointment.Application.Repositories;
 using Appointment.Application.Repositories.HospitalAppointment;
 using Appointment.Domain.Entities;
 using Appointment.Domain.Enums;
@@ -17,19 +14,21 @@ public class HospitalAppointmentService : IHospitalAppointmentService
     private readonly IHospitalAppointmentReadRepository _readHospitalAppointmentRepo;
     private readonly IHospitalAppointmentWriteRepository _writeHospitalAppointmentRepo;
     private readonly AutoMapper.IMapper _mapper;
+    private readonly IDoctorService _doctorService;
 
-    public HospitalAppointmentService(IHospitalAppointmentReadRepository readRepo, IHospitalAppointmentWriteRepository writeRepo, AutoMapper.IMapper mapper)
+    public HospitalAppointmentService(IHospitalAppointmentReadRepository readRepo, IHospitalAppointmentWriteRepository writeRepo, AutoMapper.IMapper mapper, IDoctorService doctorService)
     {
         _readHospitalAppointmentRepo = readRepo;
         _writeHospitalAppointmentRepo = writeRepo;
         _mapper = mapper;
+        _doctorService = doctorService;
     }
 
     public async Task<bool> CreateAppointmentAsync(CreateHospitalAppointmentDto createAppointmentDto)
     {
         try
         {
-            bool isAvailable = await CheckDoctorAvailabilityAsync(
+            bool isAvailable = await _doctorService.CheckDoctorAvailabilityAsync(
                 createAppointmentDto.DoctorId,
                 createAppointmentDto.AppointmentDate,
                 createAppointmentDto.AppointmentTime);
@@ -86,7 +85,7 @@ public class HospitalAppointmentService : IHospitalAppointmentService
         if (appointment.AppointmentDate < DateTime.Now)
             throw new Exception("Geçmiş randevunun tarihi değiştirilemez.");
 
-        bool isAvailable = await CheckDoctorAvailabilityAsync(
+        bool isAvailable = await _doctorService.CheckDoctorAvailabilityAsync(
             appointment.DoctorId,
             newDate,
             newTime,
@@ -97,58 +96,12 @@ public class HospitalAppointmentService : IHospitalAppointmentService
 
         appointment.AppointmentDate = newDate;
         appointment.AppointmentTime = newTime;
-        appointment.Status = AppointmentStatus.Active;
+        appointment.Status = AppointmentStatus.Postponed;
         appointment.UpdatedDate = DateTime.Now;
         _writeHospitalAppointmentRepo.Update(appointment);
         return await _writeHospitalAppointmentRepo.SaveAsync() > 0;
     }
-
-    public async Task<bool> CheckDoctorAvailabilityAsync(string doctorId, DateTime date, TimeSpan time, string? excludeAppointmentId = null)
-    {
-        var isBooked = await _readHospitalAppointmentRepo.GetAll(tracking: false)
-            .AnyAsync(x => x.DoctorId == doctorId &&
-                           x.AppointmentDate.Date == date.Date &&
-                           x.AppointmentTime == time &&
-                           x.Status != AppointmentStatus.Cancelled &&
-                           x.Id != (excludeAppointmentId ?? ""));
-
-        return !isBooked;
-    }
-
-    // --- HELPER ---
-    public async Task<List<AppointmentSlotDto>> GetAllSlotsAsync(string doctorId, DateTime selectedDate)
-    {
-        var bookedTimes = await _readHospitalAppointmentRepo.GetAll(tracking: false)
-    .Where(x => x.DoctorId == doctorId
-             && x.AppointmentDate.Date == selectedDate.Date
-             && x.Status != AppointmentStatus.Cancelled)
-    .Select(x => x.AppointmentTime)
-    .ToListAsync();
-
-        var slots = new List<AppointmentSlotDto>();
-        TimeSpan startTime = new TimeSpan(9, 0, 0);
-        TimeSpan endTime = new TimeSpan(17, 0, 0);
-        TimeSpan interval = TimeSpan.FromMinutes(15);
-
-        while (startTime < endTime)
-        {
-            bool isPast = (selectedDate.Date < DateTime.Today) ||
-                          (selectedDate.Date == DateTime.Today && startTime <= DateTime.Now.TimeOfDay);
-
-            bool isBooked = bookedTimes.Contains(startTime);
-
-            slots.Add(new AppointmentSlotDto
-            {
-                Time = startTime.ToString(@"hh\:mm"),
-                IsAvailable = !(isPast || isBooked)
-            });
-
-            startTime = startTime.Add(interval);
-        }
-        return slots;
-    }
-
-    public async Task<List<ViewHospitalAppointmentDto>> GetPatientAppointmentsAsync(string userId, bool isHistory)
+    public async Task<List<ViewHospitalAppointmentDto>> GetAppointmentsAsync(string userId, bool isHistory)
     {
         var query = _readHospitalAppointmentRepo.GetAll(tracking: false)
             .Where(x => x.PatientId == userId);
@@ -170,7 +123,7 @@ public class HospitalAppointmentService : IHospitalAppointmentService
         {
             return appointmentList
                 .OrderByDescending(x => x.AppointmentDate)
-                .ThenByDescending(x => x.AppointmentTime) 
+                .ThenByDescending(x => x.AppointmentTime)
                 .ToList();
         }
         else
@@ -181,4 +134,6 @@ public class HospitalAppointmentService : IHospitalAppointmentService
                 .ToList();
         }
     }
+
+
 }

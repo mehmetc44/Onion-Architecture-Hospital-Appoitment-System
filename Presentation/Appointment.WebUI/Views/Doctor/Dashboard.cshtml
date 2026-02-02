@@ -1,27 +1,71 @@
+@model Appointment.WebUI.Models.Doctor.DoctorDashboardViewModel
+
 @{
-    ViewData["Title"] = "Doctor Dashboard";
+    ViewData["Title"] = "Doktor Paneli";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 @section Sidebar {
-    @await Html.PartialAsync("_SidebarDoctor")
+    @await Html.PartialAsync("Component/_DoctorSidebar.cshtml")
 }
 
-<h1>Dashboard</h1>
+<section id="dashboard" class="page active">
+    <h1>Genel Bakış</h1>
 
-<div class="stats">
-    <div class="stat-card">
-        <h3>Bugün</h3>
-        <p id="todayCount">8</p>
+    <div class="stats">
+        <div class="stat-card">
+            <h3>Bugün</h3>
+            <p class="fs-2 fw-bold text-primary">@Model.Summary.TodayCount</p>
+            <small>Randevu</small>
+        </div>
+        <div class="stat-card">
+            <h3>Bu Hafta</h3>
+            <p class="fs-2 fw-bold text-success">@Model.Summary.WeekCount</p>
+            <small>Randevu</small>
+        </div>
+        <div class="stat-card">
+            <h3>Bu Ay</h3>
+            <p class="fs-2 fw-bold text-warning">@Model.Summary.MonthCount</p>
+            <small>Randevu</small>
+        </div>
     </div>
-    <div class="stat-card">
-        <h3>Bu Hafta</h3>
-        <p id="weekCount">35</p>
-    </div>
-    <div class="stat-card">
-        <h3>Bu Ay</h3>
-        <p id="monthCount">140</p>
-    </div>
-</div>
 
-<canvas id="patientChart" height="120"></canvas>
+    <hr class="my-4" />
+
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+            <div class="day-stats p-4 border rounded bg-light">
+                
+                <form method="get" asp-controller="Doctor" asp-action="Dashboard" class="mb-4">
+                    <label class="form-label fw-bold">İstatistik Tarihi:</label>
+                    <div class="input-group">
+                        <input type="date" name="date" class="form-control" 
+                               value="@Model.FilterDate.ToString("yyyy-MM-dd")" 
+                               onchange="this.form.submit()">
+                        <button class="btn btn-primary" type="submit">Getir</button>
+                    </div>
+                </form>
+
+                <h4 class="mb-3 border-bottom pb-2">
+                    @Model.FilterDate.ToString("dd MMMM yyyy") Raporu
+                </h4>
+                
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Toplam Randevu:</span>
+                    <span class="fw-bold">@Model.Stats.TotalAppointments</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2 text-success">
+                    <span><i class="fas fa-check-circle"></i> Tamamlanan:</span>
+                    <span class="fw-bold">@Model.Stats.CompletedAppointments</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2 text-danger">
+                    <span><i class="fas fa-times-circle"></i> İptal Edilen:</span>
+                    <span class="fw-bold">@Model.Stats.CancelledAppointments</span>
+                </div>
+                 </div>
+        </div>
+    </div>
+</section>

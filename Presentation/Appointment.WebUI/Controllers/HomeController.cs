@@ -68,7 +68,7 @@ namespace Appointment.WebUI.Controllers
         [HttpGet("home/active")]
         public async Task<IActionResult> Active()
         {
-            var appointments = await _hospitalAppointmentService.GetPatientAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", false);
+            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", false);
             return View(appointments);
         }
         public IActionResult Message()
@@ -77,7 +77,7 @@ namespace Appointment.WebUI.Controllers
         }
         public async Task<IActionResult> Past()
         {
-            var appointments = await _hospitalAppointmentService.GetPatientAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", true);
+            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", true);
             return View(appointments);
         }
 
@@ -85,55 +85,6 @@ namespace Appointment.WebUI.Controllers
         {
             var user = _userService.GetUserInformationByIdAsync("f2a86008-3066-4168-bd1f-6e5d6909def0").Result;
             return View(user);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RescheduleAppointment(string appointmentId, DateTime newDate, TimeSpan newTime)
-        {
-            try
-            {
-                var result = await _hospitalAppointmentService.RescheduleAppointmentAsync(appointmentId, newDate, newTime);
-
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Randevunuz başarıyla ertelendi.";
-                }
-                else
-                {
-                    TempData["ErrorMessage"] = "Randevu ertelenemedi. Lütfen tekrar deneyiniz.";
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "Hata: " + ex.Message;
-            }
-
-            return RedirectToAction("Active"); // Listeleme sayfasına dön
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CancelAppointment(string id)
-        {
-            try
-            {
-                var result = await _hospitalAppointmentService.CancelAppointmentAsync(id);
-
-                if (!result)
-                {
-                    TempData["ErrorMessage"] = "İptal işlemi başarısız oldu.";
-                }
-                else
-                {
-                    TempData["SuccessMessage"] = "Randevu başarıyla iptal edildi.";
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData["ErrorMessage"] = "Hata: " + ex.Message;
-            }
-            return RedirectToAction("Active");
         }
 
         [HttpGet]
@@ -148,16 +99,12 @@ namespace Appointment.WebUI.Controllers
             var hospitals = await _hospitalService.GetHospitalsByCityAsync(cityId);
             return Json(hospitals);
         }
-
-        // Hastaneye göre bölümleri getir
         [HttpGet]
         public async Task<JsonResult> GetDepartments(string hospitalId)
         {
             var departments = await _departmentService.GetDepartmentsByHospitalAsync(hospitalId);
             return Json(departments);
         }
-
-        // Bölüme göre doktorları getir
         [HttpGet]
         public async Task<JsonResult> GetDoctors(string departmentId)
         {
@@ -165,11 +112,10 @@ namespace Appointment.WebUI.Controllers
             return Json(doctors);
         }
 
-        // Doktor ve tarihe göre saatleri getir (Senin yazdığın metod)
         [HttpGet]
         public async Task<JsonResult> GetSlots(string doctorId, DateTime date)
         {
-            var slots = await _hospitalAppointmentService.GetAllSlotsAsync(doctorId, date);
+            var slots = await _doctorService.GetAllSlotsAsync(doctorId, date);
             return Json(slots);
         }
 

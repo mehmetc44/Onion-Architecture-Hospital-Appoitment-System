@@ -158,3 +158,45 @@ form#profileForm button{margin-top:15px;background:#10b981;color:white;width:100
     .slot-btn.available:hover { background: #e0f7fa; }
     .slot-btn.selected { background: #007bff; color: #fff; }
     .slot-btn.unavailable { background: #f8f9fa; color: #ccc; cursor: not-allowed; }
+
+.main-content{flex:1;padding:20px;overflow:auto;}
+.page{display:none;}
+.page.active{display:block;}
+.stats{display:flex;gap:20px;margin-bottom:20px;}
+.stat-card{background:#ffffff;color:black;padding:20px;border-radius:10px;flex:1;text-align:center; border: 1px solid #e5e7eb;}
+.calendar{margin-top:30px;}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+#calendarGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;}
+
+/* Yeşil arka plan -> Çok açık mavi */
+.calendar-day{padding:15px;background:#eff6ff;border-radius:8px;text-align:center;cursor:pointer; color:black;}
+/* Hover yeşil -> Hover açık mavi */
+.calendar-day:hover{background:#dbeafe;}
+/* Aktif kenarlık yeşil -> Koyu Mavi */
+.calendar-day.active{border:2px solid #1e3a8a;font-weight:700;}
+
+table{width:100%;border-collapse:collapse;margin-top:20px;}
+/* Tablo kenarlıkları yeşil -> Mavi */
+th,td{border:1px solid #2563eb;padding:8px;text-align:center;}
+
+input.desc-input{width:100%;}
+button{padding:5px 10px;border:none;border-radius:5px;cursor:pointer;}
+
+/* Onay butonu yeşil -> Mavi */
+.confirm-btn{background:#2563eb;color:white;}
+.confirm-btn:hover{background:#1e3a8a;}
+
+.cancel-btn{background:#ef4444;color:white;}
+
+/* Gün istatistikleri arka planı yeşil -> Çok açık mavi */
+.day-stats{margin-top:20px;background:#eff6ff;padding:15px;border-radius:10px; border: 1px solid #2563eb;}
+
+/* Form alanı renk değişimi */
+form#profileForm{max-width:400px;background:#eff6ff;padding:20px;border-radius:10px;}
+/* Etiket rengi yeşil -> Koyu Mavi */
+form#profileForm label{display:block;margin-top:10px;color:#1e3a8a;font-weight:600;}
+/* Input kenarlığı yeşil -> Mavi */
+form#profileForm input{width:100%;padding:8px;margin-top:5px;border-radius:5px;border:1px solid #2563eb; background: white;}
+/* Buton rengi yeşil -> Mavi */
+form#profileForm button{margin-top:15px;background:#2563eb;color:white;width:100%;padding:10px;font-weight:bold;}
+form#profileForm button:hover{background:#1e3a8a;}

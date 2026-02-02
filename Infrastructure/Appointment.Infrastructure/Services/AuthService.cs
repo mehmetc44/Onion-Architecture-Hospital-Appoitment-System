@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using Appointment.Application.Abstraction.Service;
 using Appointment.Application.DTO;
 using Appointment.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 namespace Appointment.Infrastructure.Services;
 
@@ -9,17 +11,27 @@ public class AuthService : IAuthService
     private readonly UserManager<AspUser> _userManager;
     private readonly SignInManager<AspUser> _signInManager;
     private readonly IUserService _userService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthService(UserManager<AspUser> userManager, SignInManager<AspUser> signInManager, IUserService userService)
+    public AuthService(UserManager<AspUser> userManager, SignInManager<AspUser> signInManager, IUserService userService, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _httpContextAccessor = httpContextAccessor;
         _userService = userService;
+    }
+
+    public async Task<AspUser?> GetActiveUserAsync()
+    {
+        var principal = _httpContextAccessor.HttpContext?.User;
+        if (principal == null) return null;
+        var userId = principal.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId)) return null;
+        return await _userManager.FindByIdAsync(userId);
     }
 
     public async Task<LoginResponseDTO> LoginAsync(LoginDTO model)
     {
-        //Search User by UserName or Email
         var user = await _userManager.FindByNameAsync(model.UserNameOrEmail)
                    ?? await _userManager.FindByEmailAsync(model.UserNameOrEmail);
 
@@ -29,7 +41,6 @@ public class AuthService : IAuthService
                 Succeeded = false,
                 Message = "Kullanıcı bulunamadı."
             };
-        //Password Check
         var passwordCheck = await _signInManager.CheckPasswordSignInAsync(
             user,
             model.Password,
@@ -43,7 +54,6 @@ public class AuthService : IAuthService
                 Message = "Kullanıcı adı veya şifre hatalı."
             };
 
-        //Role Check
         if (model.SelectedRole.HasValue)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -58,7 +68,6 @@ public class AuthService : IAuthService
                 };
             }
         }
-        //Cookie SignIn
         await _signInManager.SignInAsync(
             user,
             isPersistent: true
@@ -69,6 +78,10 @@ public class AuthService : IAuthService
             Succeeded = true,
             Message = "Giriş başarılı."
         };
+    }
+    public string? GetActiveUserId()
+    {
+        return _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
     public async Task LogoutAsync()
     {

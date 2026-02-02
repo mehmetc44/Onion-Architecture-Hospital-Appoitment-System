@@ -24,6 +24,7 @@ namespace Appointment.WebUI
             builder.Services.ConfigureDependencyInjection();
             builder.Services.AddControllersWithViews();
             builder.Services.AddAutoMapper(typeof(AutoMappingProfile).Assembly);
+            builder.Services.AddHttpContextAccessor();
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {

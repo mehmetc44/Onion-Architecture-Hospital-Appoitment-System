@@ -15,7 +15,7 @@ public class AutoMappingProfile : Profile
         CreateMap<CreateHospitalAppointmentDto, HospitalAppointment>()
             // Tarihin sadece Date kısmını alıyoruz
             .ForMember(dest => dest.AppointmentDate, opt => opt.MapFrom(src => src.AppointmentDate.Date));
-        
+
         CreateMap<UpdateHospitalAppointmentDto, HospitalAppointment>()
             // Tarihin sadece Date kısmını alıyoruz
             .ForMember(dest => dest.AppointmentDate, opt => opt.MapFrom(src => src.AppointmentDate.Date))
@@ -30,8 +30,21 @@ public class AutoMappingProfile : Profile
             .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name))
             .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => $"{src.Doctor.User.FirstName} {src.Doctor.User.LastName}"))
             .ForMember(dest => dest.DoctorId, opt => opt.MapFrom(src => src.Doctor.Id))
-            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status)); 
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status));
         CreateMap<AspUser, ViewUserInfoDto>();
+
+        CreateMap<HospitalAppointment, ViewDoctorHospitalAppointmentDto>()
+    // Hasta Adı ve Soyadını birleştirip tek string yapıyoruz
+    .ForMember(dest => dest.PatientName, opt => opt.MapFrom(src => $"{src.Patient.FirstName} {src.Patient.LastName}"))
+
+    // İlişkili tablolardan verileri çekiyoruz
+    .ForMember(dest => dest.HospitalName, opt => opt.MapFrom(src => src.Hospital.Name))
+    .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Hospital.City.Name))
+    .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name)) // Veya src.Doctor.Department.Name yapına göre değişebilir
+    .ForMember(dest => dest.PatientUserName, opt => opt.MapFrom(src => src.Patient.UserName))
+    .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => $"{src.Doctor.User.FirstName} {src.Doctor.User.LastName}"))
+    // Diğer alanlar (Id, Date, Time, Status, PatientId) isimleri aynı olduğu için otomatik maplenir.
+    ;
     }
 }
 

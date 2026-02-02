@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Models/Auth/" />
     <Folder Include="Models/City/" />
+    <Folder Include="Models/Doctor/" />
     <Folder Include="Views/Shared/Partials/" />
   </ItemGroup>
 

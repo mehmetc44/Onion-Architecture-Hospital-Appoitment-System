@@ -63,7 +63,7 @@ public class UserService : IUserService
     {
         return _userManager.Users
             .Where(u => u.Id == id)
-            .ProjectTo<ViewUserInfoDto>(_mapper.ConfigurationProvider) // Tek satırda dönüşüm
+            .ProjectTo<ViewUserInfoDto>(_mapper.ConfigurationProvider)
             .FirstOrDefaultAsync();
     }
 }
