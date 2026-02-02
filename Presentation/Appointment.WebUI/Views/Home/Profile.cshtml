@@ -1,12 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Hasta Bilgileri";
+    ViewData["Title"] = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Sidebar {
-    @await Html.PartialAsync("Component/_SidebarUser")
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
 }
-
+@section Scripts {
+<script src="~/js/home.js"></script>
+}
+@model Appointment.Application.DTO.ViewUserInfoDto
 <h1>Hasta Bilgileri</h1>
 
 <div class="stats">
@@ -29,10 +31,9 @@
 </div>
 
 <div class="profile-box">
-    <p><strong>Ad Soyad:</strong> Ali Yılmaz</p>
-    <p><strong>T.C. Kimlik:</strong> 12345678901</p>
-    <p><strong>Doğum Tarihi:</strong> 12.05.1995</p>
-    <p><strong>Telefon:</strong> 0555 123 45 67</p>
-    <p><strong>E-Posta:</strong> ali@mail.com</p>
-    <p><strong>Kan Grubu:</strong> A Rh+</p>
+    <p><strong>Ad Soyad:</strong> @Model.FirstName @Model.LastName</p>
+    <p><strong>T.C. Kimlik:</strong> @Model.UserName</p>
+    <p><strong>Doğum Tarihi:</strong> @Model.DateOfBirth</p>
+    <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+    <p><strong>E-Posta:</strong> @Model.Email</p>
 </div>

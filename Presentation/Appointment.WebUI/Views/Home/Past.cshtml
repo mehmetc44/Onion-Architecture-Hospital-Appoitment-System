@@ -1,26 +1,40 @@
-﻿@{
-    ViewData["Title"] = "Geçmiş Randevular";
+﻿@using Appointment.Application.DTO.HospitalAppoitment
+@model List<ViewHospitalAppointmentDto>
+@{
+    ViewData["Title"] = "Aktif Randevular";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Sidebar {
-    @await Html.PartialAsync("Component/_SidebarUser")
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
 }
-
+@section Scripts {
+<script src="~/js/home.js"></script>
+}
 <h1>Geçmiş Randevular</h1>
 
-<table>
-    <tr>
-        <th>Hastane</th><th>Bölüm</th><th>Doktor</th><th>Tarih</th><th>Saat</th><th>Mesaj</th>
-    </tr>
-    <tr>
-        <td>Özel Hastane</td>
-        <td>Dahiliye</td>
-        <td>Dr. Ayşe Demir</td>
-        <td>10.11.2025</td>
-        <td>14:00</td>
-        <td>
-            <a asp-controller="User" asp-action="Message" asp-route-doctor="Dr. Ayşe Demir" asp-route-msg="Muayene sonrası ilaçlarınızı düzenli kullanınız ve 1 ay sonra kontrole geliniz.">Görüntüle</a>
-        </td>
-    </tr>
+<table class="table"> <thead>
+        <tr>
+            <th>Şehir</th>
+            <th>Hastane</th>
+            <th>Bölüm</th>
+            <th>Doktor</th> <th>Tarih</th>
+            <th>Saat</th>   <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.CityName</td>
+                <td>@appointment.HospitalName</td>
+                <td>@appointment.DepartmentName</td>
+                
+                <td>@appointment.DoctorName</td> 
+                
+                <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                
+                <td>@appointment.AppointmentTime.ToString("hh\\:mm")</td>
+                
+                <td>@appointment.Status</td>
+            </tr> } </tbody>
 </table>

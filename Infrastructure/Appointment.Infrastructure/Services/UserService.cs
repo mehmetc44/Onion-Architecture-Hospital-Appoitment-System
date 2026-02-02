@@ -2,17 +2,21 @@ using System;
 using Appointment.Application.Abstraction.Service;
 using Appointment.Application.DTO;
 using Appointment.Domain.Entities.Identity;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Appointment.Infrastructure.Services;
 
 public class UserService : IUserService
 {
     private readonly UserManager<AspUser> _userManager;
+    private readonly AutoMapper.IMapper _mapper;
 
-    public UserService(UserManager<AspUser> userManager)
+    public UserService(UserManager<AspUser> userManager, AutoMapper.IMapper mapper)
     {
         _userManager = userManager;
+        _mapper = mapper;
     }
 
 
@@ -32,12 +36,12 @@ public class UserService : IUserService
         };
 
         var result = await _userManager.CreateAsync(user, dto.Password);
-        
+
         if (result.Succeeded)
         {
             await _userManager.AddToRoleAsync(user, Appointment.Domain.Consts.Roles.User);
         }
-        
+
         return new CreateUserResponseDTO { Succeeded = result.Succeeded, Message = result.Succeeded ? "Kullanıcı başarıyla oluşturuldu." : string.Join("; ", result.Errors.Select(e => e.Description)) };
     }
 
@@ -55,4 +59,11 @@ public class UserService : IUserService
 
     }
 
+    public Task<ViewUserInfoDto?> GetUserInformationByIdAsync(string id)
+    {
+        return _userManager.Users
+            .Where(u => u.Id == id)
+            .ProjectTo<ViewUserInfoDto>(_mapper.ConfigurationProvider) // Tek satırda dönüşüm
+            .FirstOrDefaultAsync();
+    }
 }

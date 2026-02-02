@@ -8,6 +8,7 @@ public class ViewHospitalAppointmentDto
     public string Id { get; set; } = null!;
     public DateTime AppointmentDate { get; set; }
     public TimeSpan AppointmentTime { get; set; }
+    public string DoctorId { get; set; } = null!;
     public string DoctorName { get; set; } = null!;
     public string DepartmentName { get; set; } = null!;
     public string HospitalName { get; set; } = null!;
