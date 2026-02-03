@@ -83,7 +83,7 @@ namespace Appointment.WebUI.Controllers
                     => RedirectToAction("Index", "Admin"),
 
                 Appointment.Domain.Enums.UserRole.Doctor
-                    => RedirectToAction("Index", "Doctor"),
+                    => RedirectToAction("Dashboard", "Doctor"),
 
                 Appointment.Domain.Enums.UserRole.User
                     => RedirectToAction("Appointment", "Home"),
@@ -95,7 +95,8 @@ namespace Appointment.WebUI.Controllers
         public async Task<IActionResult> Logout()
         {
             await _authService.LogoutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Auth");
+
         }
 
     }

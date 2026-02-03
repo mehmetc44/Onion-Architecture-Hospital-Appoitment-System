@@ -39,6 +39,7 @@ public class AutoMappingProfile : Profile
 
     // İlişkili tablolardan verileri çekiyoruz
     .ForMember(dest => dest.HospitalName, opt => opt.MapFrom(src => src.Hospital.Name))
+    .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Doctor.UserId))
     .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Hospital.City.Name))
     .ForMember(dest => dest.DepartmentName, opt => opt.MapFrom(src => src.Department.Name)) // Veya src.Doctor.Department.Name yapına göre değişebilir
     .ForMember(dest => dest.PatientUserName, opt => opt.MapFrom(src => src.Patient.UserName))

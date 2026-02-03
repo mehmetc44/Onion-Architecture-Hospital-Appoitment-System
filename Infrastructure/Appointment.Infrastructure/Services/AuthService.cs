@@ -21,15 +21,6 @@ public class AuthService : IAuthService
         _userService = userService;
     }
 
-    public async Task<AspUser?> GetActiveUserAsync()
-    {
-        var principal = _httpContextAccessor.HttpContext?.User;
-        if (principal == null) return null;
-        var userId = principal.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userId)) return null;
-        return await _userManager.FindByIdAsync(userId);
-    }
-
     public async Task<LoginResponseDTO> LoginAsync(LoginDTO model)
     {
         var user = await _userManager.FindByNameAsync(model.UserNameOrEmail)

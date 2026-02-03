@@ -6,7 +6,7 @@ namespace Appointment.Application.DTO.HospitalAppoitment;
 public class ViewDoctorHospitalAppointmentDto
 {
 
-    public string Id { get; set; } = null!;
+    public string UserId { get; set; } = null!;
     public DateTime AppointmentDate { get; set; }
     public TimeSpan AppointmentTime { get; set; }
     public string PatientId { get; set; } = null!;

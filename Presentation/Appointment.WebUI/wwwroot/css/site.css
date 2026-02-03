@@ -200,3 +200,22 @@ form#profileForm input{width:100%;padding:8px;margin-top:5px;border-radius:5px;b
 /* Buton rengi yeşil -> Mavi */
 form#profileForm button{margin-top:15px;background:#2563eb;color:white;width:100%;padding:10px;font-weight:bold;}
 form#profileForm button:hover{background:#1e3a8a;}
+.logout-btn {
+        background: none;
+        border: none;
+        color: white; /* Sidebar metin rengi neyse o olmalı */
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 10px 15px; /* Linklerin padding'i ile aynı yap */
+        text-align: left;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Hover efekti */
+        border-radius: 5px;
+    }

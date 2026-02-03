@@ -5,6 +5,13 @@
         <li><a asp-controller="home" asp-action="Active">Aktif Randevular</a></li>
         <li><a asp-controller="home" asp-action="Past">Geçmiş Randevular</a></li>
         <li><a asp-controller="home" asp-action="Profile">Hasta Bilgileri</a></li>
+        <li style="margin-top: auto; border-top: 1px solid #ffffff40; padding-top: 10px;">
+            <form asp-controller="Auth" asp-action="Logout" method="post" id="logoutForm">
+                <button type="submit" class="logout-btn" style="background:none; border:none; color:#fff; cursor:pointer; font-size:16px;">
+                    🚪 Çıkış Yap
+                </button>
+            </form>
+        </li>
     </ul>
 </aside>
 

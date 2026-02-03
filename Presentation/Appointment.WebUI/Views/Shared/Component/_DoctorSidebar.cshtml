@@ -2,8 +2,16 @@
     <h2>🩺 Doktor Paneli</h2>
     <ul>
         <li><a asp-controller="Doctor" asp-action="Dashboard">Dashboard</a></li>
-        <li><a asp-controller="Doctor" asp-action="Appointments">Randevular</a></li>
+        <li><a asp-controller="Doctor" asp-action="Appointments">Randevular</a></li> 
         <li><a asp-controller="Doctor" asp-action="Profile">Profil</a></li>
+
+        <li style="margin-top: auto; border-top: 1px solid #ffffff40; padding-top: 10px;">
+            <form asp-controller="Auth" asp-action="Logout" method="post" id="logoutForm">
+                <button type="submit" class="logout-btn" style="background:none; border:none; color:#fff; cursor:pointer; font-size:16px;">
+                    🚪 Çıkış Yap
+                </button>
+            </form>
+        </li>
     </ul>
 </aside>
 

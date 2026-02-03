@@ -1,17 +1,23 @@
 using Appointment.Application.Abstraction.Service;
+using Appointment.Infrastructure.Services;
 using Appointment.WebUI.Models.Doctor;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointment.WebUI.Controllers
 {
+    [Authorize(Roles = "Doctor")]
     public class DoctorController : Controller
     {
         IHospitalAppointmentService _hospitalAppointmentService;
         IDoctorService _doctorService;
-        public DoctorController(IHospitalAppointmentService hospitalAppointmentService, IDoctorService doctorService)
+        IAuthService _authService;
+
+        public DoctorController(IHospitalAppointmentService hospitalAppointmentService, IDoctorService doctorService, IAuthService authService)
         {
             _hospitalAppointmentService = hospitalAppointmentService;
             _doctorService = doctorService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -21,7 +27,7 @@ namespace Appointment.WebUI.Controllers
 
             var _date = date ?? DateTime.Now.Date;
 
-            var doctorId = "b5e93280-c9b3-437f-9f98-bb0784edbd93";
+            var doctorId = _authService.GetActiveUserId();
             var summaryData = await _doctorService.GetDashboardSummaryAsync(doctorId);
             var periodData = await _doctorService.GetDailyStatsAsync(doctorId, _date);
             var model = new DoctorDashboardViewModel
@@ -33,18 +39,18 @@ namespace Appointment.WebUI.Controllers
 
             return View(model);
         }
-
         public async Task<IActionResult> Appointments(DateTime? date)
         {
             DateTime selectedDate = date ?? DateTime.Today;
-            var doctorId = "b5e93280-c9b3-437f-9f98-bb0784edbd93";
+            var doctorId = _authService.GetActiveUserId();
             var appointments = await _doctorService.GetDoctorScheduleAsync(doctorId, selectedDate);
             ViewBag.SelectedDate = selectedDate;
             return View(appointments);
         }
+
         public async Task<ActionResult> Profile()
         {
-            var doctorId = "b5e93280-c9b3-437f-9f98-bb0784edbd93";
+            var doctorId = _authService.GetActiveUserId();
             var doctorInfo = await _doctorService.GetDoctorInfoAsync(doctorId);
             return View(doctorInfo);
         }

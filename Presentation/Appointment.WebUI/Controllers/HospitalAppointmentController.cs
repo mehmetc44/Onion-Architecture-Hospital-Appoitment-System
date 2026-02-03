@@ -1,4 +1,5 @@
 using Appointment.Application.Abstraction.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointment.WebUI.Controllers
@@ -32,6 +33,7 @@ namespace Appointment.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Doctor")]
         public async Task<IActionResult> RescheduleAppointment(string appointmentId, DateTime newDate, TimeSpan newTime)
         {
             try
@@ -53,6 +55,7 @@ namespace Appointment.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "User,Doctor")]
         public async Task<IActionResult> CancelAppointment(string id)
         {
             try
@@ -71,18 +74,22 @@ namespace Appointment.WebUI.Controllers
 
             return RedirectToReferer();
         }
-
+        [Authorize(Roles = "User,Doctor")]
         private IActionResult RedirectToReferer()
         {
-            if (true)
+            if (User.IsInRole("Doctor"))
             {
                 return RedirectToAction("Dashboard", "Doctor");
+            }else if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Active", "Home");
             }
 
-            return RedirectToAction("Active", "Home");
+            return RedirectToAction("Login", "Auth");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> CompleteAppointment(string appointmentId, DateTime? currentDate)
         {
             try

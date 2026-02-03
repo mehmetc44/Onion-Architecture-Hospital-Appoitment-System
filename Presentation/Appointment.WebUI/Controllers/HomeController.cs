@@ -3,11 +3,13 @@ using Appointment.Application.DTO;
 using Appointment.Application.DTO.City;
 using Appointment.Application.DTO.HospitalAppoitment;
 using Appointment.WebUI.Models.Appointment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Appointment.WebUI.Controllers
 {
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         private readonly ICityService _cityService;
@@ -16,6 +18,7 @@ namespace Appointment.WebUI.Controllers
         private readonly IHospitalAppointmentService _hospitalAppointmentService;
         private readonly IUserService _userService;
         private readonly IDepartmentService _departmentService;
+        private readonly IAuthService _authService;
 
         public HomeController(
             ICityService cityService,
@@ -23,12 +26,13 @@ namespace Appointment.WebUI.Controllers
             IDoctorService doctorService,
             IHospitalAppointmentService hospitalAppointmentService,
             IDepartmentService departmentService,
-            IUserService userService)
+            IUserService userService, IAuthService authService)
         {
             _cityService = cityService;
             _departmentService = departmentService;
             _hospitalService = hospitalService;
             _doctorService = doctorService;
+            _authService = authService;
             _userService = userService;
             _hospitalAppointmentService = hospitalAppointmentService;
         }
@@ -43,11 +47,12 @@ namespace Appointment.WebUI.Controllers
         public async Task<ActionResult> Appointment(AppointmentViewModel model)
         {
             ModelState.Remove("PatientId");
+            var userId = _authService.GetActiveUserId();
             if (ModelState.IsValid)
             {
                 var appointment = new CreateHospitalAppointmentDto
                 {
-                    PatientId = model.PatientId,
+                    PatientId = userId,
                     DoctorId = model.DoctorId,
                     HospitalId = model.HospitalId,
                     DepartmentId = model.DepartmentId,
@@ -68,22 +73,22 @@ namespace Appointment.WebUI.Controllers
         [HttpGet("home/active")]
         public async Task<IActionResult> Active()
         {
-            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", false);
+            var userId = _authService.GetActiveUserId();
+            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync(userId, false);
             return View(appointments);
         }
-        public IActionResult Message()
-        {
-            return View();
-        }
+        [HttpGet("home/past")]
         public async Task<IActionResult> Past()
         {
-            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync("f2a86008-3066-4168-bd1f-6e5d6909def0", true);
+            var userId = _authService.GetActiveUserId();
+            var appointments = await _hospitalAppointmentService.GetAppointmentsAsync(userId, true);
             return View(appointments);
         }
-
+        [HttpGet("home/profile")]
         public IActionResult Profile()
         {
-            var user = _userService.GetUserInformationByIdAsync("f2a86008-3066-4168-bd1f-6e5d6909def0").Result;
+            var userId = _authService.GetActiveUserId();
+            var user = _userService.GetUserInformationByIdAsync(userId).Result;
             return View(user);
         }
 

@@ -16,15 +16,6 @@ public class DepartmentService : IDepartmentService
         _readDepartmentRepo = readDepartmentRepo;
         _writeDepartmentRepo = writeDepartmentRepo;
     }
-    public Task<List<Department>> GetAllDepartmentsAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<Department> GetDepartmentByNameAsync(string name)
-    {
-        throw new NotImplementedException();
-    }
 
     public async Task<List<Department>> GetDepartmentsByHospitalAsync(string hospitalId)
     {

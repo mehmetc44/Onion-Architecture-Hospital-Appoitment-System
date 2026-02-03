@@ -56,14 +56,14 @@ public class DoctorService : IDoctorService
             .ToList();
         return Task.FromResult(doctors);
     }
-    public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(string doctorId)
+    public async Task<DashboardSummaryDto> GetDashboardSummaryAsync(string userId)
     {
         var today = DateTime.Today;
         var startOfMonth = new DateTime(today.Year, today.Month, 1);
         var diff = (7 + (today.DayOfWeek - DayOfWeek.Monday)) % 7;
         var startOfWeek = today.AddDays(-diff).Date;
         var query = _readHospitalAppointmentRepo.GetAll(tracking: false)
-                             .Where(x => x.DoctorId == doctorId);
+                             .Where(x => x.Doctor.UserId == userId);
         var summary = new DashboardSummaryDto
         {
             TodayCount = await query.CountAsync(x => x.AppointmentDate == today),
@@ -77,11 +77,11 @@ public class DoctorService : IDoctorService
 
         return summary;
     }
-    public async Task<AppointmentStatsDto> GetDailyStatsAsync(string doctorId, DateTime date)
+    public async Task<AppointmentStatsDto> GetDailyStatsAsync(string userId, DateTime date)
     {
     var targetDate = date.Date;
     var query = _readHospitalAppointmentRepo.GetAll(tracking: false)
-        .Where(x => x.DoctorId == doctorId && 
+        .Where(x => x.Doctor.UserId == userId && 
                     x.AppointmentDate == targetDate);
 
     var stats = new AppointmentStatsDto
@@ -95,17 +95,18 @@ public class DoctorService : IDoctorService
 
     return stats;
 }
-    public async Task<List<ViewDoctorHospitalAppointmentDto>> GetDoctorScheduleAsync(string doctorId, DateTime date)
-    {
-        var query = _readHospitalAppointmentRepo.GetAll(tracking: false)
-            .Where(x => x.DoctorId == doctorId && x.AppointmentDate == date.Date);
-        var appointments = await query
-            .ProjectTo<ViewDoctorHospitalAppointmentDto>(_mapper.ConfigurationProvider)
-            .ToListAsync();
-        return appointments
-            .OrderBy(x => x.AppointmentTime)
-            .ToList();
-    }
+public async Task<List<ViewDoctorHospitalAppointmentDto>> GetDoctorScheduleAsync(string userId, DateTime date)
+{
+    var query = _readHospitalAppointmentRepo.GetAll(tracking: false)
+        // DoctorId üzerinden değil, Doctor tablosuna git ve oradaki UserId üzerinden filtrele
+        .Where(x => x.Doctor.UserId == userId && x.AppointmentDate == date.Date);
+
+    var appointments = await query
+        .ProjectTo<ViewDoctorHospitalAppointmentDto>(_mapper.ConfigurationProvider)
+        .ToListAsync();
+
+    return appointments.OrderBy(x => x.AppointmentTime).ToList();
+}
 
     public async Task<bool> CheckDoctorAvailabilityAsync(string doctorId, DateTime date, TimeSpan time, string? excludeAppointmentId = null)
     {
@@ -151,7 +152,7 @@ public class DoctorService : IDoctorService
     }
     public async Task<ViewDoctorInfoDto> GetDoctorInfoAsync(string doctorId)
     {
-        var doctor = await _doctorReadRepository.GetWhere(d => d.Id == doctorId, tracking: false)
+        var doctor = await _doctorReadRepository.GetWhere(d => d.UserId == doctorId, tracking: false)
             .Select(d => new ViewDoctorInfoDto
             {
                 Id = d.Id,
