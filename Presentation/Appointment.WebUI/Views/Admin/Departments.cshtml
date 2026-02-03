@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_AdminSidebar.cshtml")
+}
+
+<h1>Bölümler</h1>
+<button onclick="openDepartmentModal()">Bölüm Ekle</button>
+
+<table id="departmentTable">
+    <tr><th>Bölüm Adı</th><th>Hastane</th><th>İşlem</th></tr>
+</table>

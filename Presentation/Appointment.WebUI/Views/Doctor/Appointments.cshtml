@@ -1,0 +1,87 @@
+@using Appointment.Application.DTO.HospitalAppoitment
+@model List<ViewDoctorHospitalAppointmentDto>
+@{
+    ViewData["Title"] = "Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_DoctorSidebar.cshtml")
+}
+
+<h1>Randevular</h1>
+
+<div class="card mb-4 bg-light">
+    <div class="card-body d-flex align-items-center justify-content-between">
+        <h5 class="m-0 text-primary">
+            <i class="fas fa-calendar-alt"></i> Tarih Filtresi
+        </h5>
+
+        <form method="get" class="d-flex align-items-center gap-2">
+            <label for="dateFilter" class="fw-bold text-nowrap">Tarih Seçiniz:</label>
+
+            <input type="date" id="dateFilter" name="date" class="form-control"
+                value="@(ViewBag.SelectedDate != null ? ((DateTime)ViewBag.SelectedDate).ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))"
+                onchange="this.form.submit()" />
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>TC</th>
+            <th>Hastane</th>
+            <th>Bölüm</th>
+            <th>Doktor</th>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var appointment in Model)
+    {
+        <tr>
+            <td>@appointment.PatientName</td>
+            <td>@appointment.PatientUserName</td>
+            <td>@appointment.HospitalName</td>
+            <td>@appointment.DepartmentName</td>
+            <td>@appointment.DoctorName</td>
+            <td>@appointment.AppointmentDate.ToString("dd.MM.yyyy")</td>
+            <td>@appointment.AppointmentTime.ToString(@"hh\:mm")</td>
+            <td>@appointment.Status</td>
+            <td>
+                <form asp-controller="HospitalAppointment" method="post" style="display:flex; gap:5px;">
+                    
+                    <input type="hidden" name="appointmentId" value="@appointment.UserId" />
+                    <input type="hidden" name="currentDate" value="@ViewBag.SelectedDate" />
+                    
+                    <div>
+                        <button type="submit" 
+                                asp-controller="HospitalAppointment"
+                                asp-action="CompleteAppointment" 
+                                class="btn btn-success btn-sm" 
+                                title="Tamamlandı olarak işaretle">
+                            <i class="fas fa-check"></i> Tamamla
+                        </button>
+                    </div>
+
+                    <div>
+                        <button type="submit" 
+                                asp-controller="HospitalAppointment"
+                                asp-action="CancelAppointment" 
+                                class="btn btn-danger btn-sm" 
+                                title="Randevuyu iptal et">
+                            <i class="fas fa-times"></i> İptal
+                        </button>
+                    </div>
+
+                </form>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>

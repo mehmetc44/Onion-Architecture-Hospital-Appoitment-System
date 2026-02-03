@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Randevu Al";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Appointment.WebUI.Models.Appointment
+@model AppointmentViewModel
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
+}
+@section Scripts {
+<script src="~/js/home.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var successMessage = '@TempData["SuccessMessage"]';
+            if (successMessage) {
+                Swal.fire({
+                    title: 'Başarılı!',
+                    text: successMessage,
+                    icon: 'success',
+                    confirmButtonText: 'Tamam'
+                });
+            }
+        });
+    </script>
+}
+
+<h1>Randevu Al</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Harika!</strong> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Hata!</strong> @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<form asp-action="Appointment" method="post" id="appointmentForm">
+    <div class="form-grid">
+        <select id="citySelect" name="CityId" class="form-control" data-selected-id="@Model.CityId">
+            <option value="">Şehirler Yükleniyor...</option>
+        </select>
+
+        <select id="hospitalSelect" name="HospitalId" class="form-control" disabled>
+            <option value="">Hastane Seçiniz</option>
+        </select>
+
+        <select id="departmentSelect" name="DepartmentId" class="form-control" disabled>
+            <option value="">Bölüm Seçiniz</option>
+        </select>
+
+        <select id="doctorSelect" name="DoctorId" class="form-control" disabled>
+            <option value="">Doktor Seçiniz</option>
+        </select>
+
+        <input type="date" id="dateSelect" name="AppointmentDate" class="form-control" 
+               min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <h3>Uygun Saatler</h3>
+    <input id="selectedTime" name="AppointmentTime" readonly class="form-control" 
+       placeholder="Saat seçiniz" style="cursor:pointer" 
+       value="@(Model.AppointmentTime.HasValue ? Model.AppointmentTime.Value.ToString(@"hh\:mm") : "")" />
+
+    <div id="timeDrawer" class="drawer">
+        <div id="timeSlots" style="display: flex; flex-wrap: wrap;"></div>
+    </div>
+
+    <hr />
+    <input type="hidden" name="PatientId" value="-" />
+
+    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Randevu Oluştur</button>
+    <div asp-validation-summary="All" class="text-danger"></div>
+</form>
+
+
+
+
+
+

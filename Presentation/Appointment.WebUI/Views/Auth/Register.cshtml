@@ -1,0 +1,52 @@
+@model Appointment.WebUI.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<h1>Kayıt Ol</h1>
+
+<form asp-action="Register" asp-controller="Auth" method="post">
+    <div asp-validation-summary="ModelOnly" style="color:red;"></div>
+
+    <div>
+        <input asp-for="FirstName" placeholder="Ad">
+        <span asp-validation-for="FirstName" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="LastName" placeholder="Soyad">
+        <span asp-validation-for="LastName" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="TCKimlikNo" placeholder="TC Kimlik No">
+        <span asp-validation-for="TCKimlikNo" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="DateOfBirth" type="date">
+        <span asp-validation-for="DateOfBirth" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="Email" type="email" placeholder="E-posta">
+        <span asp-validation-for="Email" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="Password" type="password" placeholder="Şifre">
+        <span asp-validation-for="Password" style="color:red;"></span>
+    </div>
+
+    <div>
+        <input asp-for="ConfirmPassword" type="password" placeholder="Şifre Tekrar">
+        <span asp-validation-for="ConfirmPassword" style="color:red;"></span>
+    </div>
+
+    <button type="submit">Kayıt Ol</button>
+</form>
+<div class="links">
+    <a asp-action="Login">Giriş Yap</a>
+    <a asp-action="ForgotPassword">Şifremi Unuttum</a>
+</div>

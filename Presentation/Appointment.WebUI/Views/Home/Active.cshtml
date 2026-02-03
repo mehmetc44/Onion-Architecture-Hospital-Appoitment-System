@@ -1,0 +1,76 @@
+﻿@using Appointment.Application.DTO.HospitalAppoitment
+@model List<ViewHospitalAppointmentDto>
+@{
+    ViewData["Title"] = "Aktif Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Sidebar {
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
+}
+@section Scripts {
+    <script src="~/js/home.js"></script>
+}
+
+<h1>Aktif Randevular</h1>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Şehir</th>
+            <th>Hastane</th>
+            <th>Bölüm</th>
+            <th>Doktor</th>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.CityName</td>
+                <td>@appointment.HospitalName</td>
+                <td>@appointment.DepartmentName</td>
+
+                <td>@appointment.DoctorName</td>
+
+                <td>@appointment.AppointmentDate.ToShortDateString()</td>
+
+                <td>@appointment.AppointmentTime.ToString("hh\\:mm")</td>
+
+                <td>@appointment.Status</td>
+
+                <td>
+                    <button type="button" class="delay btn btn-warning" onclick="openRescheduleModal('@appointment.Id','@appointment.DoctorId')">
+                    Ertele</button>
+
+                    <form asp-controller="HospitalAppointment" asp-action="CancelAppointment" method="post" style="display:inline;">
+
+                        <input type="hidden" name="id" value="@appointment.Id" />
+
+                        <button type="submit" class="cancel btn btn-danger">İptal</button>
+
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@await Html.PartialAsync("../Shared/Modals/_RescheduleAppointmentModal.cshtml")

@@ -1,27 +1,56 @@
-var builder = WebApplication.CreateBuilder(args);
+using Appointment.Persistence.Context;
+using Appointment.Domain.Entities.Identity;
+using Appointment.WebUI.Extensions;
+using Appointment.Application.DTO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
+using Appointment.Infrastructure.Services;
+using Appointment.Application.Mapper;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+namespace Appointment.WebUI
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.ConfigureIdentity(builder.Configuration);
+            builder.Services.ConfigureSQLiteConnection(builder.Configuration);
+            builder.Services.ConfigureDependencyInjection();
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddAutoMapper(typeof(AutoMappingProfile).Assembly);
+            builder.Services.AddHttpContextAccessor();
+            var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await SeedService.SeedAsync(services);
+            }
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHttpsRedirection();
+                app.UseHsts();
+            }
+
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            // --- Route ---
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.Run();
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.Run();

@@ -1,0 +1,39 @@
+@model Appointment.WebUI.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+
+<div class="roles">
+    <button type="button" data-role="User" data-display="Kullanıcı">Kullanıcı</button>
+    <button type="button" data-role="Doctor" data-display="Doktor">Doktor</button>
+    <button type="button" data-role="Admin" data-display="Admin">Admin</button>
+</div>
+
+<h3 id="roleText">Rol Seçilmedi</h3>
+
+<form id="loginForm" method="post" asp-action="Login">
+    @Html.AntiForgeryToken()
+
+    <input asp-for="UserNameOrEmail"
+           placeholder="TC Kimlik No veya E-posta"
+           required />
+    <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+    <input asp-for="Password"
+           type="password"
+           placeholder="Şifre"
+           required />
+    <span asp-validation-for="Password" class="text-danger"></span>
+    <input type="hidden"
+           asp-for="SelectedRole"
+           id="selectedRoleInput" />
+    <button type="submit">Giriş Yap</button>
+</form>
+<div class="links">
+    <a asp-action="Register">Kayıt Ol</a>
+    <a asp-action="ForgotPassword">Şifremi Unuttum</a>
+</div>
+

@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Sidebar {
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
+}
+@section Scripts {
+<script src="~/js/home.js"></script>
+}
+@model Appointment.Application.DTO.ViewUserInfoDto
+<h1>Hasta Bilgileri</h1>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>Toplam Randevu</h3>
+        <p>12</p>
+    </div>
+    <div class="stat-card">
+        <h3>Son Randevu</h3>
+        <p>15.02.2026</p>
+    </div>
+    <div class="stat-card">
+        <h3>En Çok Gidilen Bölüm</h3>
+        <p>Kardiyoloji</p>
+    </div>
+    <div class="stat-card">
+        <h3>Son Doktor</h3>
+        <p>Dr. Ahmet Yılmaz</p>
+    </div>
+</div>
+
+<div class="profile-box">
+    <p><strong>Ad Soyad:</strong> @Model.FirstName @Model.LastName</p>
+    <p><strong>T.C. Kimlik:</strong> @Model.UserName</p>
+    <p><strong>Doğum Tarihi:</strong> @Model.DateOfBirth</p>
+    <p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+    <p><strong>E-Posta:</strong> @Model.Email</p>
+</div>

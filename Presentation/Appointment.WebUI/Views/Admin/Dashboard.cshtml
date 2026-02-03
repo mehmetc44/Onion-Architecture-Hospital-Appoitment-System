@@ -1,0 +1,113 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Sidebar {
+    @await Html.PartialAsync("Component/_AdminSidebar.cshtml")
+}
+@section Scripts {
+    <script src="~/js/admin.js"></script>
+}
+
+<h1>Dashboard</h1>
+
+<h1>Randevu Genel Durum</h1>
+
+<div class="dashboard-row">
+
+    <div class="profile-box">
+        <p><strong>Haftalık Doluluk</strong></p>
+
+        <div style="background:#e5e7eb;border-radius:10px;overflow:hidden;height:18px;">
+            <div style="width:75%;background:#2563eb;height:100%;"></div>
+        </div>
+
+        <p style="margin-top:8px;">%75 dolu</p>
+    </div>
+
+    <div class="profile-box">
+
+        <p>Tamamlanan <strong>(6)</strong></p>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="flex:1;background:#e5e7eb;border-radius:10px;height:14px;">
+                <div style="width:60%;background:#10b981;height:100%;border-radius:10px;"></div>
+            </div>
+            <span>%60</span>
+        </div>
+
+        <p style="margin-top:10px;">Beklemede <strong>(2)</strong></p>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="flex:1;background:#e5e7eb;border-radius:10px;height:14px;">
+                <div style="width:20%;background:#f59e0b;height:100%;border-radius:10px;"></div>
+            </div>
+            <span>%20</span>
+        </div>
+
+        <p style="margin-top:10px;">İptal <strong>(2)</strong></p>
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="flex:1;background:#e5e7eb;border-radius:10px;height:14px;">
+                <div style="width:20%;background:#ef4444;height:100%;border-radius:10px;"></div>
+            </div>
+            <span>%20</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<h1>Aylık Randevu Akışı</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Gün</th>
+            <th>Tarih</th>
+            <th>Randevu Sayısı</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Pzt</td><td>1</td><td>3</td><td>Yoğun</td></tr>
+        <tr><td>Sal</td><td>2</td><td>2</td><td>Normal</td></tr>
+        <tr><td>Çar</td><td>3</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Per</td><td>4</td><td>1</td><td>Sakin</td></tr>
+        <tr><td>Cum</td><td>5</td><td>5</td><td>Çok Yoğun</td></tr>
+        <tr><td>Cts</td><td>6</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Paz</td><td>7</td><td>2</td><td>Sakin</td></tr>
+
+        <tr><td>Pzt</td><td>8</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Sal</td><td>9</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Çar</td><td>10</td><td>5</td><td>Çok Yoğun</td></tr>
+        <tr><td>Per</td><td>11</td><td>2</td><td>Sakin</td></tr>
+        <tr><td>Cum</td><td>12</td><td>6</td><td>Çok Yoğun</td></tr>
+        <tr><td>Cts</td><td>13</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Paz</td><td>14</td><td>1</td><td>Sakin</td></tr>
+
+        <tr><td>Pzt</td><td>15</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Sal</td><td>16</td><td>2</td><td>Sakin</td></tr>
+        <tr><td>Çar</td><td>17</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Per</td><td>18</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Cum</td><td>19</td><td>5</td><td>Çok Yoğun</td></tr>
+        <tr><td>Cts</td><td>20</td><td>2</td><td>Sakin</td></tr>
+        <tr><td>Paz</td><td>21</td><td>1</td><td>Sakin</td></tr>
+
+        <tr><td>Pzt</td><td>22</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Sal</td><td>23</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Çar</td><td>24</td><td>5</td><td>Çok Yoğun</td></tr>
+        <tr><td>Per</td><td>25</td><td>2</td><td>Sakin</td></tr>
+        <tr><td>Cum</td><td>26</td><td>6</td><td>Çok Yoğun</td></tr>
+        <tr><td>Cts</td><td>27</td><td>3</td><td>Normal</td></tr>
+        <tr><td>Paz</td><td>28</td><td>2</td><td>Sakin</td></tr>
+
+        <tr><td>Pzt</td><td>29</td><td>4</td><td>Yoğun</td></tr>
+        <tr><td>Sal</td><td>30</td><td>3</td><td>Normal</td></tr>
+    </tbody>
+</table>
+
+
+
+
+

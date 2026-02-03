@@ -1,0 +1,40 @@
+﻿@using Appointment.Application.DTO.HospitalAppoitment
+@model List<ViewHospitalAppointmentDto>
+@{
+    ViewData["Title"] = "Aktif Randevular";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Sidebar {
+    @await Html.PartialAsync("Component/_UserSidebar.cshtml")
+}
+@section Scripts {
+<script src="~/js/home.js"></script>
+}
+<h1>Geçmiş Randevular</h1>
+
+<table class="table"> <thead>
+        <tr>
+            <th>Şehir</th>
+            <th>Hastane</th>
+            <th>Bölüm</th>
+            <th>Doktor</th> <th>Tarih</th>
+            <th>Saat</th>   <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <td>@appointment.CityName</td>
+                <td>@appointment.HospitalName</td>
+                <td>@appointment.DepartmentName</td>
+                
+                <td>@appointment.DoctorName</td> 
+                
+                <td>@appointment.AppointmentDate.ToShortDateString()</td>
+                
+                <td>@appointment.AppointmentTime.ToString("hh\\:mm")</td>
+                
+                <td>@appointment.Status</td>
+            </tr> } </tbody>
+</table>
